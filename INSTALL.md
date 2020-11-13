@@ -25,13 +25,16 @@ on Windows.
     2. In **Valid Redirect URIs** insert the URL of GoCD, ex.: **http://localhost:8153**
     3. In **Credentials** tab copy value of **Secret**
 
-### Create Role Configuration
+### Create Group Configuration
 
 1. Sign in Keycloak Console
 2. Select the realm that you want to configure. Ex. **Master**
-3. Click in **Roles** menu
-    1. Click **Add Role** button
-    2. Insert the name of **Role** and it description
-    3. Save the **Role**
-    4. Select the user that you want to configure this role
-    5. Select **Role Mappings** tab and select tht **Role** created
+3. Click in **Groups** menu
+    1. Click **Add Group** button
+    2. Insert the name of **Group** and it description
+    3. Save the **Group**
+    4. Select the **user** that you want to configure this role
+    5. Select **Groups** tab and select the group in **Available Groups**
+
+> Obs.: By default Keycloak do not provide group definition on user session, to get this, edit 
+>**profile** scope and add groups in **Mappers** tab, thie scope needs to be added as builtin.
