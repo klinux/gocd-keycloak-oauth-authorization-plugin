@@ -52,6 +52,10 @@ public class AuthConfigValidateRequestExecutorTest {
                 "    \"key\": \"KeycloakEndpoint\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"message\": \"KeycloakRealm must not be blank.\",\n" +
+                "    \"key\": \"KeycloakRealm\"\n" +
+                "  },\n" +
+                "  {\n" +
                 "    \"message\": \"ClientId must not be blank.\",\n" +
                 "    \"key\": \"ClientId\"\n" +
                 "  },\n" +

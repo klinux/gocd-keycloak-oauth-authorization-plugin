@@ -56,19 +56,20 @@ public class KeycloakApiClient {
 
     public String authorizationServerUrl(String callbackUrl) throws Exception {
         LOG.debug("[KeycloakApiClient] Generating Keycloak oauth url.");
+        String realm = keycloakConfiguration.keycloakRealm();
 
         return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
                 .addPathSegments("auth")
                 .addPathSegments("realms")
-                .addPathSegments("master")
+                .addPathSegments(realm)
                 .addPathSegments("protocol")
                 .addPathSegments("openid-connect")
                 .addPathSegments("auth")
                 .addQueryParameter("client_id", keycloakConfiguration.clientId())
                 .addQueryParameter("redirect_uri", callbackUrl)
                 .addQueryParameter("response_type", "code")
-                .addQueryParameter("scope", "openid profile email groups")
+                .addQueryParameter("scope", "openid profile email roles")
                 .addQueryParameter("state", UUID.randomUUID().toString())
                 .addQueryParameter("nonce", UUID.randomUUID().toString())
                 .build().toString();
@@ -81,12 +82,13 @@ public class KeycloakApiClient {
         }
 
         LOG.debug("[KeycloakApiClient] Fetching access token using authorization code.");
+        String realm = keycloakConfiguration.keycloakRealm();
 
         final String accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
                 .addPathSegments("auth")
                 .addPathSegments("realms")
-                .addPathSegments("master")
+                .addPathSegments(realm)
                 .addPathSegments("protocol")
                 .addPathSegments("openid-connect")
                 .addPathSegments("token")
@@ -112,12 +114,13 @@ public class KeycloakApiClient {
         validateTokenInfo(tokenInfo);
 
         LOG.debug("[KeycloakApiClient] Fetching user profile using access token.");
+        String realm = keycloakConfiguration.keycloakRealm();
 
         final String userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
                 .addPathSegments("auth")
                 .addPathSegments("realms")
-                .addPathSegments("master")
+                .addPathSegments(realm)
                 .addPathSegments("protocol")
                 .addPathSegments("openid-connect")
                 .addPathSegments("userinfo")

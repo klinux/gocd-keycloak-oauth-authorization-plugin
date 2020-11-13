@@ -1,3 +1,5 @@
+gocd/plugins/
+
 # Intellij files
 .idea/
 

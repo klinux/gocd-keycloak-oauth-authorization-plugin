@@ -25,7 +25,7 @@ public class KeycloakUserTest {
 
     @Test
     public void shouldDeserializeJSON() throws Exception {
-        final KeycloakUser oktaUser = KeycloakUser.fromJSON("{\n" +
+        final KeycloakUser keycloakUser = KeycloakUser.fromJSON("{\n" +
                 " \"email\": \"foo@example.com\",\n" +
                 " \"email_verified\": true,\n" +
                 " \"name\": \"Foo Bar\",\n" +
@@ -38,15 +38,15 @@ public class KeycloakUserTest {
                 " \"zoneinfo\": \"America/Los_Angeles\"\n" +
                 "}");
 
-        assertThat(oktaUser.getEmail(), is("foo@example.com"));
-        assertThat(oktaUser.isVerifiedEmail(), is(true));
-        assertThat(oktaUser.getName(), is("Foo Bar"));
-        assertThat(oktaUser.getGivenName(), is("Bar"));
-        assertThat(oktaUser.getFamilyName(), is("Foo"));
-        assertThat(oktaUser.getLocale(), is("en"));
-        assertThat(oktaUser.getPreferredUsername(), is("foo@example.com"));
-        assertThat(oktaUser.getSub(), is("00uea8uu"));
-        assertThat(oktaUser.getUpdatedAt(), is(1520793947));
-        assertThat(oktaUser.getZoneInfo(), is("America/Los_Angeles"));
+        assertThat(keycloakUser.getEmail(), is("foo@example.com"));
+        assertThat(keycloakUser.isVerifiedEmail(), is(true));
+        assertThat(keycloakUser.getName(), is("Foo Bar"));
+        assertThat(keycloakUser.getGivenName(), is("Bar"));
+        assertThat(keycloakUser.getFamilyName(), is("Foo"));
+        assertThat(keycloakUser.getLocale(), is("en"));
+        assertThat(keycloakUser.getPreferredUsername(), is("foo@example.com"));
+        assertThat(keycloakUser.getSub(), is("00uea8uu"));
+        assertThat(keycloakUser.getUpdatedAt(), is(1520793947));
+        assertThat(keycloakUser.getZoneInfo(), is("America/Los_Angeles"));
     }
 }

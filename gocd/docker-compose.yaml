@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  keycloak:
+      image: jboss/keycloak:11.0.3
+      environment:
+        ROOT_LOGLEVEL: INFO
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+        DB_VENDOR: h2
+      ports:
+        - 8080:8080
+  gocd:
+    image: gocd/gocd-server:v20.9.0
+    volumes:
+      - ./plugins:/godata/plugins
+    ports:
+      - 8153:8153
+      - 8154:8154

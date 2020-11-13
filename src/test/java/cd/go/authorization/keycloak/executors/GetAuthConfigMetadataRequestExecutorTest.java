@@ -52,6 +52,13 @@ public class GetAuthConfigMetadataRequestExecutorTest {
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"key\": \"KeycloakRealm\",\n" +
+                "    \"metadata\": {\n" +
+                "      \"required\": true,\n" +
+                "      \"secure\": false\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
                 "    \"key\": \"ClientId\",\n" +
                 "    \"metadata\": {\n" +
                 "      \"required\": true,\n" +

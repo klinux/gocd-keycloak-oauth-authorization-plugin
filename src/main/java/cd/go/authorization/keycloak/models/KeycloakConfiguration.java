@@ -34,6 +34,11 @@ public class KeycloakConfiguration implements Validatable {
     private String keycloakEndpoint;
 
     @Expose
+    @SerializedName("KeycloakRealm")
+    @ProfileField(key = "KeycloakRealm", required = true, secure = false)
+    private String keycloakRealm;
+
+    @Expose
     @SerializedName("ClientId")
     @ProfileField(key = "ClientId", required = true, secure = false)
     private String clientId;
@@ -56,6 +61,10 @@ public class KeycloakConfiguration implements Validatable {
 
     public String keycloakEndpoint() {
         return keycloakEndpoint;
+    }
+
+    public String keycloakRealm() {
+        return keycloakRealm;
     }
 
     public String clientId() {
