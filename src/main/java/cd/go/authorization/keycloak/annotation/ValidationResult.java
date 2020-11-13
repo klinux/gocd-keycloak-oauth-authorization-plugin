@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.annotation;
+package cd.go.authorization.keycloak.annotation;
 
 import java.util.*;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public class ValidationResult {
     private final Set<ValidationError> errors = new HashSet<>();

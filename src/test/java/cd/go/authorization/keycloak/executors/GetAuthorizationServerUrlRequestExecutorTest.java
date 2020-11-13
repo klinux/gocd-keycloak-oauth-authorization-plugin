@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.exceptions.NoAuthorizationConfigurationException;
-import cd.go.authorization.okta.models.AuthConfig;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.requests.GetAuthorizationServerUrlRequest;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.exceptions.NoAuthorizationConfigurationException;
+import cd.go.authorization.keycloak.models.AuthConfig;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.requests.GetAuthorizationServerUrlRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,9 +45,9 @@ public class GetAuthorizationServerUrlRequestExecutorTest {
     @Mock
     private AuthConfig authConfig;
     @Mock
-    private OktaConfiguration oktaConfiguration;
+    private KeycloakConfiguration keycloakConfiguration;
     @Mock
-    private OktaApiClient oktaApiClient;
+    private KeycloakApiClient keycloakApiClient;
 
     private GetAuthorizationServerUrlRequestExecutor executor;
 
@@ -70,10 +70,10 @@ public class GetAuthorizationServerUrlRequestExecutorTest {
 
     @Test
     public void shouldReturnAuthorizationServerUrl() throws Exception {
-        when(authConfig.getConfiguration()).thenReturn(oktaConfiguration);
+        when(authConfig.getConfiguration()).thenReturn(keycloakConfiguration);
         when(request.authConfigs()).thenReturn(Collections.singletonList(authConfig));
-        when(oktaConfiguration.oktaApiClient()).thenReturn(oktaApiClient);
-        when(oktaApiClient.authorizationServerUrl(request.callbackUrl())).thenReturn("https://authorization-server-url");
+        when(keycloakConfiguration.keycloakApiClient()).thenReturn(keycloakApiClient);
+        when(keycloakApiClient.authorizationServerUrl(request.callbackUrl())).thenReturn("https://authorization-server-url");
 
         final GoPluginApiResponse response = executor.execute();
 

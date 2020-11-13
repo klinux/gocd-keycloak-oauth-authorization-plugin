@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta;
+package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.models.*;
-import cd.go.authorization.okta.OktaUser;
+import cd.go.authorization.keycloak.models.*;
+import cd.go.authorization.keycloak.KeycloakUser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,26 +25,25 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static java.util.Collections.singletonMap;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
-public class OktaAuthorizerTest {
+public class KeycloakAuthorizerTest {
 
-    private OktaAuthorizer authorizer;
-    private OktaUser loggedInUser;
+    private KeycloakAuthorizer authorizer;
+    private KeycloakUser loggedInUser;
     private MembershipChecker membershipChecker;
     private AuthConfig authConfig;
 
     @Before
     public void setUp() throws Exception {
         membershipChecker = mock(MembershipChecker.class);
-        loggedInUser = mock(OktaUser.class);
+        loggedInUser = mock(KeycloakUser.class);
         authConfig = mock(AuthConfig.class);
 
-        authorizer = new OktaAuthorizer(membershipChecker);
+        authorizer = new KeycloakAuthorizer(membershipChecker);
     }
 
     @Test
@@ -59,7 +58,7 @@ public class OktaAuthorizerTest {
     @Test
     public void shouldAssignRoleIfUserIsAMemberOfAtLeastOneGroup() throws Exception {
         final Role role = mock(Role.class);
-        final OktaRoleConfiguration roleConfiguration = mock(OktaRoleConfiguration.class);
+        final KeycloakRoleConfiguration roleConfiguration = mock(KeycloakRoleConfiguration.class);
 
         when(role.name()).thenReturn("admin");
         when(role.roleConfiguration()).thenReturn(roleConfiguration);
@@ -75,7 +74,7 @@ public class OktaAuthorizerTest {
     @Test
     public void shouldNotAssignRoleIfUserIsNotMemberOfAnyGroup() throws Exception {
         final Role role = mock(Role.class);
-        final OktaRoleConfiguration roleConfiguration = mock(OktaRoleConfiguration.class);
+        final KeycloakRoleConfiguration roleConfiguration = mock(KeycloakRoleConfiguration.class);
 
         when(role.name()).thenReturn("admin");
         when(role.roleConfiguration()).thenReturn(roleConfiguration);

@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.annotation.MetadataValidator;
-import cd.go.authorization.okta.annotation.ValidationResult;
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.requests.VerifyConnectionRequest;
+import cd.go.authorization.keycloak.annotation.MetadataValidator;
+import cd.go.authorization.keycloak.annotation.ValidationResult;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.requests.VerifyConnectionRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 import java.util.HashMap;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public class VerifyConnectionRequestExecutor implements RequestExecutor {
     private final VerifyConnectionRequest request;
-    private final OktaApiClient providerManager;
+    private final KeycloakApiClient providerManager;
 
     public VerifyConnectionRequestExecutor(VerifyConnectionRequest request) {
-        this(request, new OktaApiClient(request.oktaConfiguration()));
+        this(request, new KeycloakApiClient(request.keycloakConfiguration()));
     }
 
-    public VerifyConnectionRequestExecutor(VerifyConnectionRequest request, OktaApiClient providerManager) {
+    public VerifyConnectionRequestExecutor(VerifyConnectionRequest request, KeycloakApiClient providerManager) {
         this.request = request;
         this.providerManager = providerManager;
     }
@@ -51,7 +51,7 @@ public class VerifyConnectionRequestExecutor implements RequestExecutor {
     }
 
     private ValidationResult validate() {
-        return new MetadataValidator().validate(request.oktaConfiguration());
+        return new MetadataValidator().validate(request.keycloakConfiguration());
     }
 
     private GoPluginApiResponse successResponse() {

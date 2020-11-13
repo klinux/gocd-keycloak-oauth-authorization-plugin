@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.annotation.MetadataHelper;
-import cd.go.authorization.okta.annotation.ProfileMetadata;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.annotation.MetadataHelper;
+import cd.go.authorization.keycloak.annotation.ProfileMetadata;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.utils.Util;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class GetAuthConfigViewRequestExecutorTest {
     public void allFieldsShouldBePresentInView() throws Exception {
         String template = Util.readResource("/auth-config.template.html");
 
-        for (ProfileMetadata field : MetadataHelper.getMetadata(OktaConfiguration.class)) {
+        for (ProfileMetadata field : MetadataHelper.getMetadata(KeycloakConfiguration.class)) {
             assertThat(template, containsString("ng-model=\"" + field.getKey() + "\""));
             assertThat(template, containsString("<span class=\"form_error form-error\" ng-class=\"{'is-visible': GOINPUTNAME[" +
                     field.getKey() + "].$error.server}\" ng-show=\"GOINPUTNAME[" +

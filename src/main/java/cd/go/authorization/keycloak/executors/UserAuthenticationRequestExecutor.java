@@ -14,39 +14,37 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.OktaAuthorizer;
-import cd.go.authorization.okta.OktaUser;
-import cd.go.authorization.okta.exceptions.NoAuthorizationConfigurationException;
-import cd.go.authorization.okta.models.AuthConfig;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.models.User;
-import cd.go.authorization.okta.requests.UserAuthenticationRequest;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.KeycloakAuthorizer;
+import cd.go.authorization.keycloak.KeycloakUser;
+import cd.go.authorization.keycloak.exceptions.NoAuthorizationConfigurationException;
+import cd.go.authorization.keycloak.models.AuthConfig;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.models.User;
+import cd.go.authorization.keycloak.requests.UserAuthenticationRequest;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static cd.go.authorization.okta.OktaPlugin.LOG;
-import static java.text.MessageFormat.format;
+import static cd.go.authorization.keycloak.KeycloakPlugin.LOG;
 
 public class UserAuthenticationRequestExecutor implements RequestExecutor {
     private static final Gson GSON = new Gson();
     private final UserAuthenticationRequest request;
-    private final OktaAuthorizer oktaAuthorizer;
+    private final KeycloakAuthorizer keycloakAuthorizer;
 
     public UserAuthenticationRequestExecutor(UserAuthenticationRequest request) {
-        this(request, new OktaAuthorizer());
+        this(request, new KeycloakAuthorizer());
     }
 
-    UserAuthenticationRequestExecutor(UserAuthenticationRequest request, OktaAuthorizer oktaAuthorizer) {
+    UserAuthenticationRequestExecutor(UserAuthenticationRequest request, KeycloakAuthorizer keycloakAuthorizer) {
         this.request = request;
-        this.oktaAuthorizer = oktaAuthorizer;
+        this.keycloakAuthorizer = keycloakAuthorizer;
     }
 
     @Override
@@ -56,13 +54,13 @@ public class UserAuthenticationRequestExecutor implements RequestExecutor {
         }
 
         final AuthConfig authConfig = request.authConfigs().get(0);
-        final OktaConfiguration configuration = request.authConfigs().get(0).getConfiguration();
-        final OktaApiClient oktaApiClient = configuration.oktaApiClient();
-        final OktaUser oktaUser = oktaApiClient.userProfile(request.tokenInfo());
+        final KeycloakConfiguration configuration = request.authConfigs().get(0).getConfiguration();
+        final KeycloakApiClient keycloakApiClient = configuration.keycloakApiClient();
+        final KeycloakUser keycloakUser = keycloakApiClient.userProfile(request.tokenInfo());
 
         Map<String, Object> userMap = new HashMap<>();
-        userMap.put("user", new User(oktaUser));
-        userMap.put("roles", oktaAuthorizer.authorize(oktaUser, authConfig, request.roles()));
+        userMap.put("user", new User(keycloakUser));
+        userMap.put("roles", keycloakAuthorizer.authorize(keycloakUser, authConfig, request.roles()));
 
         return DefaultGoPluginApiResponse.success(GSON.toJson(userMap));
     }

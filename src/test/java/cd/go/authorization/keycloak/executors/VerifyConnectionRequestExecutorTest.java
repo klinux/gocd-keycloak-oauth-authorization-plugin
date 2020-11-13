@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.requests.VerifyConnectionRequest;
+import cd.go.authorization.keycloak.requests.VerifyConnectionRequest;
 import org.junit.Before;
 import org.junit.Test;
 

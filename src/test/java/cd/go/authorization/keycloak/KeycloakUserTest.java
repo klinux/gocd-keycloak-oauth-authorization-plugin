@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta;
+package cd.go.authorization.keycloak;
 
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class OktaUserTest {
+public class KeycloakUserTest {
 
     @Test
     public void shouldDeserializeJSON() throws Exception {
-        final OktaUser oktaUser = OktaUser.fromJSON("{\n" +
+        final KeycloakUser oktaUser = KeycloakUser.fromJSON("{\n" +
                 " \"email\": \"foo@example.com\",\n" +
                 " \"email_verified\": true,\n" +
                 " \"name\": \"Foo Bar\",\n" +

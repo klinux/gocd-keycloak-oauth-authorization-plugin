@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.exceptions;
+package cd.go.authorization.keycloak.exceptions;
 
 public class NoSuchRequestHandlerException extends RuntimeException {
     public NoSuchRequestHandlerException(String message) {

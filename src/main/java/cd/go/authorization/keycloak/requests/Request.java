@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.RequestExecutor;
+import cd.go.authorization.keycloak.executors.RequestExecutor;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 import java.util.Map;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public abstract class Request {
     protected GoPluginApiRequest apiRequest;

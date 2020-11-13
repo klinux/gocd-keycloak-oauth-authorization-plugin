@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.annotation.MetadataValidator;
-import cd.go.authorization.okta.annotation.ValidationResult;
-import cd.go.authorization.okta.executors.RequestExecutor;
+import cd.go.authorization.keycloak.annotation.MetadataValidator;
+import cd.go.authorization.keycloak.annotation.ValidationResult;
+import cd.go.authorization.keycloak.executors.RequestExecutor;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
@@ -31,9 +31,9 @@ public class RoleConfigValidateRequestExecutor implements RequestExecutor {
 
     @Override
     public GoPluginApiResponse execute() throws Exception {
-        final ValidationResult validationResult = new MetadataValidator().validate(request.oktaRoleConfiguration());
+        final ValidationResult validationResult = new MetadataValidator().validate(request.keycloakRoleConfiguration());
 
-        if (!request.oktaRoleConfiguration().hasConfiguration()) {
+        if (!request.keycloakRoleConfiguration().hasConfiguration()) {
             validationResult.addError("Groups", "At least one of the fields(groups or users) should be specified.");
             validationResult.addError("Users", "At least one of the fields(groups or users) should be specified.");
         }

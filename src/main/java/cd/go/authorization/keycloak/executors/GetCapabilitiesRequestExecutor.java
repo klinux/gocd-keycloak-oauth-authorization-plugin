@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.models.Capabilities;
-import cd.go.authorization.okta.models.SupportedAuthType;
+import cd.go.authorization.keycloak.models.Capabilities;
+import cd.go.authorization.keycloak.models.SupportedAuthType;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 

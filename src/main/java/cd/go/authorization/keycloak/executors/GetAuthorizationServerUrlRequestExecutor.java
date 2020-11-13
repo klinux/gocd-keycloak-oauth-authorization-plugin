@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.exceptions.NoAuthorizationConfigurationException;
-import cd.go.authorization.okta.requests.GetAuthorizationServerUrlRequest;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.exceptions.NoAuthorizationConfigurationException;
+import cd.go.authorization.keycloak.requests.GetAuthorizationServerUrlRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 import java.util.Collections;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public class GetAuthorizationServerUrlRequestExecutor implements RequestExecutor {
     private final GetAuthorizationServerUrlRequest request;
@@ -38,8 +38,8 @@ public class GetAuthorizationServerUrlRequestExecutor implements RequestExecutor
             throw new NoAuthorizationConfigurationException("[Authorization Server Url] No authorization configuration found.");
         }
 
-        final OktaApiClient oktaApiClient = request.authConfigs().get(0).getConfiguration().oktaApiClient();
+        final KeycloakApiClient keycloakApiClient = request.authConfigs().get(0).getConfiguration().keycloakApiClient();
 
-        return DefaultGoPluginApiResponse.success(GSON.toJson(Collections.singletonMap("authorization_server_url", oktaApiClient.authorizationServerUrl(request.callbackUrl()))));
+        return DefaultGoPluginApiResponse.success(GSON.toJson(Collections.singletonMap("authorization_server_url", keycloakApiClient.authorizationServerUrl(request.callbackUrl()))));
     }
 }

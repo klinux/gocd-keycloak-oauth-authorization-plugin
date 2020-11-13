@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.AuthConfigValidateRequestExecutor;
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.executors.AuthConfigValidateRequestExecutor;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 
 public class AuthConfigValidateRequest extends Request {
-    private final OktaConfiguration oktaConfiguration;
+    private final KeycloakConfiguration keycloakConfiguration;
 
-    public AuthConfigValidateRequest(OktaConfiguration oktaConfiguration) {
-        this.oktaConfiguration = oktaConfiguration;
+    public AuthConfigValidateRequest(KeycloakConfiguration keycloakConfiguration) {
+        this.keycloakConfiguration = keycloakConfiguration;
     }
 
     public static final AuthConfigValidateRequest from(GoPluginApiRequest apiRequest) {
-        return new AuthConfigValidateRequest(OktaConfiguration.fromJSON(apiRequest.requestBody()));
+        return new AuthConfigValidateRequest(KeycloakConfiguration.fromJSON(apiRequest.requestBody()));
     }
 
-    public OktaConfiguration oktaConfiguration() {
-        return oktaConfiguration;
+    public KeycloakConfiguration keycloakConfiguration() {
+        return keycloakConfiguration;
     }
 
     @Override

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
-import cd.go.authorization.okta.OktaUser;
+import cd.go.authorization.keycloak.KeycloakUser;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -35,9 +35,9 @@ public class UserTest {
     }
 
     @Test
-    public void shouldCreateUserFromOktaUser() throws Exception {
-        final OktaUser oktaUser = new OktaUser("foo@bar.com", "Foo Bar");
-        final User user = new User(oktaUser);
+    public void shouldCreateUserFromKeycloakUser() throws Exception {
+        final KeycloakUser keycloakUser = new KeycloakUser("foo@bar.com", "Foo Bar");
+        final User user = new User(keycloakUser);
 
         assertThat(user.username(), is("foo@bar.com"));
         assertThat(user.displayName(), is("Foo Bar"));

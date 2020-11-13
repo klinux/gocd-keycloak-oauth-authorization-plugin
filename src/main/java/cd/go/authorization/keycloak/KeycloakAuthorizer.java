@@ -16,14 +16,14 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.models.AuthConfig;
-import cd.go.authorization.okta.models.Role;
+import cd.go.authorization.keycloak.models.AuthConfig;
+import cd.go.authorization.keycloak.models.Role;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cd.go.authorization.okta.OktaPlugin.LOG;
+import static cd.go.authorization.keycloak.KeycloakPlugin.LOG;
 import static java.text.MessageFormat.format;
 
 public class KeycloakAuthorizer {
@@ -37,8 +37,8 @@ public class KeycloakAuthorizer {
         this.membershipChecker = membershipChecker;
     }
 
-    public List<String> authorize(OktaUser loggedInUser, AuthConfig authConfig, List<Role> roles) throws IOException {
-        final OktaUser user = loggedInUser;
+    public List<String> authorize(KeycloakUser loggedInUser, AuthConfig authConfig, List<Role> roles) throws IOException {
+        final KeycloakUser user = loggedInUser;
         final List<String> assignedRoles = new ArrayList<>();
 
         if (roles.isEmpty()) {
@@ -58,7 +58,6 @@ public class KeycloakAuthorizer {
             if (membershipChecker.isAMemberOfAtLeastOneGroup(loggedInUser, authConfig, role.roleConfiguration().groups())) {
                 LOG.debug(format("[Authorize] Assigning role `{0}` to user `{1}`. As user is a member of at least one group.", role.name(), user.getEmail()));
                 assignedRoles.add(role.name());
-                continue;
             }
         }
 

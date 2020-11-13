@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.annotation;
+package cd.go.authorization.keycloak.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

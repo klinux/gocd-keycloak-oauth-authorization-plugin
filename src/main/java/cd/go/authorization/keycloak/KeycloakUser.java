@@ -16,14 +16,13 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.utils.Util;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import static cd.go.authorization.okta.OktaPlugin.LOG;
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.KeycloakPlugin.LOG;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public class KeycloakUser {
     @Expose
@@ -126,7 +125,7 @@ public class KeycloakUser {
         return GSON.toJson(this);
     }
 
-    public static OktaUser fromJSON(String json) {
-        return GSON.fromJson(json, OktaUser.class);
+    public static KeycloakUser fromJSON(String json) {
+        return GSON.fromJson(json, KeycloakUser.class);
     }
 }

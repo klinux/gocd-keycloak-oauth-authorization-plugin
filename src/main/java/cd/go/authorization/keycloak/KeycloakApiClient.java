@@ -16,8 +16,8 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.models.TokenInfo;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.models.TokenInfo;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -25,18 +25,18 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static cd.go.authorization.okta.OktaPlugin.LOG;
-import static cd.go.authorization.okta.utils.Util.isBlank;
-import static cd.go.authorization.okta.utils.Util.isNotBlank;
+import static cd.go.authorization.keycloak.KeycloakPlugin.LOG;
+import static cd.go.authorization.keycloak.utils.Util.isBlank;
+import static cd.go.authorization.keycloak.utils.Util.isNotBlank;
 import static java.text.MessageFormat.format;
 
 public class KeycloakApiClient {
     private static final String API_ERROR_MSG = "Api call to `{0}` failed with error: `{1}`";
-    private final OktaConfiguration oktaConfiguration;
+    private final KeycloakConfiguration keycloakConfiguration;
     private final OkHttpClient httpClient;
 
-    public KeycloakApiClient(OktaConfiguration oktaConfiguration) {
-        this(oktaConfiguration,
+    public KeycloakApiClient(KeycloakConfiguration keycloakConfiguration) {
+        this(keycloakConfiguration,
                 new OkHttpClient.Builder()
                         .connectTimeout(10, TimeUnit.SECONDS)
                         .writeTimeout(10, TimeUnit.SECONDS)
@@ -45,8 +45,8 @@ public class KeycloakApiClient {
         );
     }
 
-    public KeycloakApiClient(OktaConfiguration oktaConfiguration, OkHttpClient httpClient) {
-        this.oktaConfiguration = oktaConfiguration;
+    public KeycloakApiClient(KeycloakConfiguration keycloakConfiguration, OkHttpClient httpClient) {
+        this.keycloakConfiguration = keycloakConfiguration;
         this.httpClient = httpClient;
     }
 
@@ -55,13 +55,17 @@ public class KeycloakApiClient {
     }
 
     public String authorizationServerUrl(String callbackUrl) throws Exception {
-        LOG.debug("[OktaApiClient] Generating Okta oauth url.");
+        LOG.debug("[KeycloakApiClient] Generating Keycloak oauth url.");
 
-        return HttpUrl.parse(oktaConfiguration.oktaEndpoint())
+        return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("v1")
-                .addPathSegments("authorize")
-                .addQueryParameter("client_id", oktaConfiguration.clientId())
+                .addPathSegments("auth")
+                .addPathSegments("realms")
+                .addPathSegments("master")
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("auth")
+                .addQueryParameter("client_id", keycloakConfiguration.clientId())
                 .addQueryParameter("redirect_uri", callbackUrl)
                 .addQueryParameter("response_type", "code")
                 .addQueryParameter("scope", "openid profile email groups")
@@ -73,20 +77,24 @@ public class KeycloakApiClient {
     public TokenInfo fetchAccessToken(Map<String, String> params) throws Exception {
         final String code = params.get("code");
         if (isBlank(code)) {
-            throw new RuntimeException("[OktaApiClient] Authorization code must not be null.");
+            throw new RuntimeException("[KeycloakApiClient] Authorization code must not be null.");
         }
 
-        LOG.debug("[OktaApiClient] Fetching access token using authorization code.");
+        LOG.debug("[KeycloakApiClient] Fetching access token using authorization code.");
 
-        final String accessTokenUrl = HttpUrl.parse(oktaConfiguration.oktaEndpoint())
+        final String accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("v1")
+                .addPathSegments("auth")
+                .addPathSegments("realms")
+                .addPathSegments("master")
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
                 .addPathSegments("token")
                 .build().toString();
 
         final FormBody formBody = new FormBody.Builder()
-                .add("client_id", oktaConfiguration.clientId())
-                .add("client_secret", oktaConfiguration.clientSecret())
+                .add("client_id", keycloakConfiguration.clientId())
+                .add("client_secret", keycloakConfiguration.clientSecret())
                 .add("code", code)
                 .add("grant_type", "authorization_code")
                 .add("redirect_uri", CallbackURL.instance().getCallbackURL()).build();
@@ -100,14 +108,18 @@ public class KeycloakApiClient {
         return executeRequest(request, response -> TokenInfo.fromJSON(response.body().string()));
     }
 
-    public OktaUser userProfile(TokenInfo tokenInfo) throws Exception {
+    public KeycloakUser userProfile(TokenInfo tokenInfo) throws Exception {
         validateTokenInfo(tokenInfo);
 
-        LOG.debug("[OktaApiClient] Fetching user profile using access token.");
+        LOG.debug("[KeycloakApiClient] Fetching user profile using access token.");
 
-        final String userProfileUrl = HttpUrl.parse(oktaConfiguration.oktaEndpoint())
+        final String userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("v1")
+                .addPathSegments("auth")
+                .addPathSegments("realms")
+                .addPathSegments("master")
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
                 .addPathSegments("userinfo")
                 .toString();
 
@@ -119,7 +131,7 @@ public class KeycloakApiClient {
                 .post(formBody)
                 .build();
 
-        return executeRequest(request, response -> OktaUser.fromJSON(response.body().string()));
+        return executeRequest(request, response -> KeycloakUser.fromJSON(response.body().string()));
     }
 
     private interface Callback<T> {
@@ -140,7 +152,7 @@ public class KeycloakApiClient {
 
     private void validateTokenInfo(TokenInfo tokenInfo) {
         if (tokenInfo == null) {
-            throw new RuntimeException("[OktaApiClient] TokenInfo must not be null.");
+            throw new RuntimeException("[KeycloakApiClient] TokenInfo must not be null.");
         }
     }
 }

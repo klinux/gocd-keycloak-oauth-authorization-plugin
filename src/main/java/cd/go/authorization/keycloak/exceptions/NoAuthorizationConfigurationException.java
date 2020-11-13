@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.exceptions;
+package cd.go.authorization.keycloak.exceptions;
 
 public class NoAuthorizationConfigurationException extends RuntimeException {
     public NoAuthorizationConfigurationException(String message) {

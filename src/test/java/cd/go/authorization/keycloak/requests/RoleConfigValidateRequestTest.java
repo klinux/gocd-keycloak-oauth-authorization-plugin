@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.VerifyConnectionRequestExecutor;
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.models.KeycloakRoleConfiguration;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class VerifyConnectionRequestTest {
+public class RoleConfigValidateRequestTest {
+
     @Mock
     private GoPluginApiRequest apiRequest;
 
@@ -40,24 +39,18 @@ public class VerifyConnectionRequestTest {
     }
 
     @Test
-    public void shouldDeserializeGoPluginApiRequestToVerifyConnectionRequest() throws Exception {
+    public void shouldDeserializeGoPluginApiRequestToRoleConfigValidateRequest() throws Exception {
         String responseBody = "{\n" +
-                "  \"GoServerUrl\": \"https://your.go.server.url\",\n" +
-                "  \"OktaEndpoint\": \"https://example.com\",\n" +
-                "  \"ClientId\": \"client-id\",\n" +
-                "  \"ClientSecret\": \"client-secret\"\n" +
+                "  \"Groups\": \"group-1,group-2\",\n" +
+                "  \"Users\": \"bob,alice\"\n" +
                 "}";
 
         when(apiRequest.requestBody()).thenReturn(responseBody);
 
-        final VerifyConnectionRequest request = VerifyConnectionRequest.from(apiRequest);
-        final OktaConfiguration oktaConfiguration = request.oktaConfiguration();
+        final RoleConfigValidateRequest request = RoleConfigValidateRequest.from(apiRequest);
+        final KeycloakRoleConfiguration keycloakRoleConfiguration = request.keycloakRoleConfiguration();
 
-        assertThat(request.executor(), instanceOf(VerifyConnectionRequestExecutor.class));
-
-        assertThat(oktaConfiguration.oktaEndpoint(), is("https://example.com"));
-        assertThat(oktaConfiguration.clientId(), is("client-id"));
-        assertThat(oktaConfiguration.clientSecret(), is("client-secret"));
+        assertThat(keycloakRoleConfiguration.groups(), contains("group-1", "group-2"));
+        assertThat(keycloakRoleConfiguration.users(), contains("bob", "alice"));
     }
-
 }

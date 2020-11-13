@@ -16,7 +16,7 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.utils.Util;
 
 public class CallbackURL {
     private static final CallbackURL CALLBACK_URL = new CallbackURL();

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -40,7 +39,7 @@ public class AuthConfigValidateRequestTest {
     @Test
     public void shouldDeserializeGoPluginApiRequestToAuthConfigValidateRequest() throws Exception {
         String responseBody = "{\n" +
-                "  \"OktaEndpoint\": \"https://example.com\",\n" +
+                "  \"KeycloakEndpoint\": \"https://example.com\",\n" +
                 "  \"ClientId\": \"client-id\",\n" +
                 "  \"ClientSecret\": \"client-secret\"\n" +
                 "}";
@@ -48,10 +47,10 @@ public class AuthConfigValidateRequestTest {
         when(apiRequest.requestBody()).thenReturn(responseBody);
 
         final AuthConfigValidateRequest request = AuthConfigValidateRequest.from(apiRequest);
-        final OktaConfiguration oktaConfiguration = request.oktaConfiguration();
+        final KeycloakConfiguration keycloakConfiguration = request.keycloakConfiguration();
 
-        assertThat(oktaConfiguration.oktaEndpoint(), is("https://example.com"));
-        assertThat(oktaConfiguration.clientId(), is("client-id"));
-        assertThat(oktaConfiguration.clientSecret(), is("client-secret"));
+        assertThat(keycloakConfiguration.keycloakEndpoint(), is("https://example.com"));
+        assertThat(keycloakConfiguration.clientId(), is("client-id"));
+        assertThat(keycloakConfiguration.clientSecret(), is("client-secret"));
     }
 }

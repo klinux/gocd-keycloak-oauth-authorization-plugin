@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.executors;
 
+import cd.go.authorization.keycloak.requests.AuthConfigValidateRequest;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
@@ -26,11 +27,11 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.util.Collections;
 
-import static java.util.Collections.singletonMap;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RoleConfigValidateRequestExecutorTest {
+public class AuthConfigValidateRequestExecutorTest {
+
     private GoPluginApiRequest request;
 
     @Before
@@ -39,36 +40,27 @@ public class RoleConfigValidateRequestExecutorTest {
     }
 
     @Test
-    public void shouldValidateEmptyRoleConfig() throws Exception {
+    public void shouldValidateMandatoryKeys() throws Exception {
         when(request.requestBody()).thenReturn(new Gson().toJson(Collections.emptyMap()));
 
-        GoPluginApiResponse response = RoleConfigValidateRequest.from(request).execute();
+        GoPluginApiResponse response = AuthConfigValidateRequest.from(request).execute();
         String json = response.responseBody();
 
         String expectedJSON = "[\n" +
                 "  {\n" +
-                "    \"key\": \"Users\",\n" +
-                "    \"message\": \"At least one of the fields(groups or users) should be specified.\"\n" +
+                "    \"message\": \"KeycloakEndpoint must not be blank.\",\n" +
+                "    \"key\": \"KeycloakEndpoint\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"key\": \"Groups\",\n" +
-                "    \"message\": \"At least one of the fields(groups or users) should be specified.\"\n" +
+                "    \"message\": \"ClientId must not be blank.\",\n" +
+                "    \"key\": \"ClientId\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"message\": \"ClientSecret must not be blank.\",\n" +
+                "    \"key\": \"ClientSecret\"\n" +
                 "  }\n" +
                 "]";
 
         JSONAssert.assertEquals(expectedJSON, json, JSONCompareMode.NON_EXTENSIBLE);
     }
-
-    @Test
-    public void shouldValidateValidRoleConfig() throws Exception {
-        when(request.requestBody()).thenReturn(new Gson().toJson(singletonMap("Groups", "Users")));
-
-        GoPluginApiResponse response = RoleConfigValidateRequest.from(request).execute();
-        String json = response.responseBody();
-
-        String expectedJSON = "[]";
-
-        JSONAssert.assertEquals(expectedJSON, json, JSONCompareMode.NON_EXTENSIBLE);
-    }
-
 }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.GetAuthorizationServerUrlRequestExecutor;
-import cd.go.authorization.okta.models.AuthConfig;
+import cd.go.authorization.keycloak.executors.GetAuthorizationServerUrlRequestExecutor;
+import cd.go.authorization.keycloak.models.AuthConfig;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class GetAuthorizationServerUrlRequestTest {
                 "    {\n" +
                 "      \"id\": \"google-config\",\n" +
                 "      \"configuration\": {\n" +
-                "        \"OktaEndpoint\": \"https://example.com\",\n" +
+                "        \"KeycloakEndpoint\": \"https://example.com\",\n" +
                 "        \"ClientId\": \"client-id\",\n" +
                 "        \"ClientSecret\": \"client-secret\"\n" +
                 "      }\n" +
@@ -68,7 +68,7 @@ public class GetAuthorizationServerUrlRequestTest {
         assertThat(request.callbackUrl(), is("https://redirect.url"));
 
         assertThat(authConfig.getId(), is("google-config"));
-        assertThat(authConfig.getConfiguration().oktaEndpoint(), is("https://example.com"));
+        assertThat(authConfig.getConfiguration().keycloakEndpoint(), is("https://example.com"));
         assertThat(authConfig.getConfiguration().clientId(), is("client-id"));
         assertThat(authConfig.getConfiguration().clientSecret(), is("client-secret"));
 

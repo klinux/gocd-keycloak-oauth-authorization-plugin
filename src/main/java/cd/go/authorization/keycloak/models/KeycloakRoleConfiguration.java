@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
-import cd.go.authorization.okta.annotation.ProfileField;
-import cd.go.authorization.okta.annotation.Validatable;
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.annotation.ProfileField;
+import cd.go.authorization.keycloak.annotation.Validatable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
@@ -26,9 +25,9 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.Map;
 
-import static cd.go.authorization.okta.utils.Util.*;
+import static cd.go.authorization.keycloak.utils.Util.*;
 
-public class OktaRoleConfiguration implements Validatable {
+public class KeycloakRoleConfiguration implements Validatable {
     @Expose
     @SerializedName("Groups")
     @ProfileField(key = "Groups", required = false, secure = false)
@@ -39,10 +38,10 @@ public class OktaRoleConfiguration implements Validatable {
     @ProfileField(key = "Users", required = false, secure = false)
     private String users;
 
-    public OktaRoleConfiguration() {
+    public KeycloakRoleConfiguration() {
     }
 
-    public OktaRoleConfiguration(String groups, String users) {
+    public KeycloakRoleConfiguration(String groups, String users) {
         this.groups = groups;
         this.users = users;
     }
@@ -59,8 +58,8 @@ public class OktaRoleConfiguration implements Validatable {
         return GSON.toJson(this);
     }
 
-    public static OktaRoleConfiguration fromJSON(String json) {
-        return GSON.fromJson(json, OktaRoleConfiguration.class);
+    public static KeycloakRoleConfiguration fromJSON(String json) {
+        return GSON.fromJson(json, KeycloakRoleConfiguration.class);
     }
 
     public Map<String, String> toProperties() {

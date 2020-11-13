@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.FetchAccessTokenRequestExecutor;
-import cd.go.authorization.okta.models.AuthConfig;
+import cd.go.authorization.keycloak.executors.FetchAccessTokenRequestExecutor;
+import cd.go.authorization.keycloak.models.AuthConfig;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;

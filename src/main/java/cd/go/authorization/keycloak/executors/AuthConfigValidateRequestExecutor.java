@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
 
-import cd.go.authorization.okta.annotation.MetadataValidator;
-import cd.go.authorization.okta.annotation.ValidationResult;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.requests.AuthConfigValidateRequest;
+import cd.go.authorization.keycloak.annotation.MetadataValidator;
+import cd.go.authorization.keycloak.annotation.ValidationResult;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.requests.AuthConfigValidateRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
@@ -32,8 +32,8 @@ public class AuthConfigValidateRequestExecutor implements RequestExecutor {
     }
 
     public GoPluginApiResponse execute() throws Exception {
-        final OktaConfiguration oktaConfiguration = request.oktaConfiguration();
-        final ValidationResult validationResult = new MetadataValidator().validate(oktaConfiguration);
+        final KeycloakConfiguration keycloakConfiguration = request.keycloakConfiguration();
+        final ValidationResult validationResult = new MetadataValidator().validate(keycloakConfiguration);
 
         return DefaultGoPluginApiResponse.success(validationResult.toJSON());
     }

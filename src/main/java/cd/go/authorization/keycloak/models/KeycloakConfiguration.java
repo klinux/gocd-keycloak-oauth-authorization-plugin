@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.annotation.ProfileField;
-import cd.go.authorization.okta.annotation.Validatable;
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.annotation.ProfileField;
+import cd.go.authorization.keycloak.annotation.Validatable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.List;
 import java.util.Map;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
-public class OktaConfiguration implements Validatable {
+public class KeycloakConfiguration implements Validatable {
     @Expose
-    @SerializedName("OktaEndpoint")
-    @ProfileField(key = "OktaEndpoint", required = true, secure = false)
-    private String oktaEndpoint;
+    @SerializedName("KeycloakEndpoint")
+    @ProfileField(key = "KeycloakEndpoint", required = true, secure = false)
+    private String keycloakEndpoint;
 
     @Expose
     @SerializedName("ClientId")
@@ -45,19 +43,19 @@ public class OktaConfiguration implements Validatable {
     @ProfileField(key = "ClientSecret", required = true, secure = true)
     private String clientSecret;
 
-    private OktaApiClient oktaApiClient;
+    private KeycloakApiClient keycloakApiClient;
 
-    public OktaConfiguration() {
+    public KeycloakConfiguration() {
     }
 
-    public OktaConfiguration(String oktaEndpoint, String clientId, String clientSecret) {
-        this.oktaEndpoint = oktaEndpoint;
+    public KeycloakConfiguration(String keycloakEndpoint, String clientId, String clientSecret) {
+        this.keycloakEndpoint = keycloakEndpoint;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
 
-    public String oktaEndpoint() {
-        return oktaEndpoint;
+    public String keycloakEndpoint() {
+        return keycloakEndpoint;
     }
 
     public String clientId() {
@@ -72,8 +70,8 @@ public class OktaConfiguration implements Validatable {
         return GSON.toJson(this);
     }
 
-    public static OktaConfiguration fromJSON(String json) {
-        return GSON.fromJson(json, OktaConfiguration.class);
+    public static KeycloakConfiguration fromJSON(String json) {
+        return GSON.fromJson(json, KeycloakConfiguration.class);
     }
 
     public Map<String, String> toProperties() {
@@ -81,11 +79,11 @@ public class OktaConfiguration implements Validatable {
         }.getType());
     }
 
-    public OktaApiClient oktaApiClient() {
-        if (oktaApiClient == null) {
-            oktaApiClient = new OktaApiClient(this);
+    public KeycloakApiClient keycloakApiClient() {
+        if (keycloakApiClient == null) {
+            keycloakApiClient = new KeycloakApiClient(this);
         }
 
-        return oktaApiClient;
+        return keycloakApiClient;
     }
 }

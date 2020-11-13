@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.RequestExecutor;
-import cd.go.authorization.okta.executors.VerifyConnectionRequestExecutor;
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.executors.RequestExecutor;
+import cd.go.authorization.keycloak.executors.VerifyConnectionRequestExecutor;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 
 public class VerifyConnectionRequest extends Request {
-    private final OktaConfiguration configuration;
+    private final KeycloakConfiguration configuration;
 
-    private VerifyConnectionRequest(OktaConfiguration configuration) {
+    private VerifyConnectionRequest(KeycloakConfiguration configuration) {
         this.configuration = configuration;
     }
 
     public static VerifyConnectionRequest from(GoPluginApiRequest apiRequest) {
-        return new VerifyConnectionRequest(OktaConfiguration.fromJSON(apiRequest.requestBody()));
+        return new VerifyConnectionRequest(KeycloakConfiguration.fromJSON(apiRequest.requestBody()));
     }
 
-    public OktaConfiguration oktaConfiguration() {
+    public KeycloakConfiguration keycloakConfiguration() {
         return configuration;
     }
 

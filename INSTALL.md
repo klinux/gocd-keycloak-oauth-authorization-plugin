@@ -31,8 +31,8 @@ on Windows.
 1. Sign in to Okta [API credentials](https://developer.okta.com/signup/)
 2. Click on **_Applications_** and from there **_Add Application_**.
 3. Select type `Web`.
-4. Fill in the `Login redirect URI` as follows: `https://{your_base_url}/go/plugin/cd.go.authorization.okta/authenticate`
-5. Click **_Save_** and afterwards change the `Initiate login URI` to: `https://{your_base_url}/go/plugin/cd.go.authorization.okta/login`
+4. Fill in the `Login redirect URI` as follows: `https://{your_base_url}/go/plugin/cd.go.authorization.keycloak/authenticate`
+5. Click **_Save_** and afterwards change the `Initiate login URI` to: `https://{your_base_url}/go/plugin/cd.go.authorization.keycloak/login`
 
 ### Create Authorization Configuration
 

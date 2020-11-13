@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.exceptions.NoSuchRequestHandlerException;
+import cd.go.authorization.keycloak.exceptions.NoSuchRequestHandlerException;
 
 public enum RequestFromServer {
 

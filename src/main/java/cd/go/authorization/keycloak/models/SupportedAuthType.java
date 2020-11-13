@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
 import com.google.gson.annotations.SerializedName;
 

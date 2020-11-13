@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
 
 import com.google.gson.Gson;
@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-import static cd.go.authorization.okta.utils.Util.readResourceBytes;
+import static cd.go.authorization.keycloak.utils.Util.readResourceBytes;
 import static java.util.Base64.getEncoder;
 
 public class GetPluginIconRequestExecutor implements RequestExecutor {
@@ -42,6 +42,6 @@ public class GetPluginIconRequestExecutor implements RequestExecutor {
     }
 
     private String getIcon() {
-        return "/okta-logo.png";
+        return "/keycloak.svg";
     }
 }

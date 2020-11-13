@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -26,44 +26,44 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
 
-public class OktaConfigurationTest {
+public class KeycloakConfigurationTest {
 
     @Test
-    public void shouldDeserializeOktaConfiguration() throws Exception {
-        final OktaConfiguration oktaConfiguration = OktaConfiguration.fromJSON("{\n" +
-                "  \"OktaEndpoint\": \"https://example.co.in\",\n" +
+    public void shouldDeserializeKeycloakConfiguration() throws Exception {
+        final KeycloakConfiguration keycloakConfiguration = KeycloakConfiguration.fromJSON("{\n" +
+                "  \"KeycloakEndpoint\": \"https://example.co.in\",\n" +
                 "  \"ClientId\": \"client-id\",\n" +
                 "  \"ClientSecret\": \"client-secret\"\n" +
                 "}");
 
-        assertThat(oktaConfiguration.oktaEndpoint(), is("https://example.co.in"));
-        assertThat(oktaConfiguration.clientId(), is("client-id"));
-        assertThat(oktaConfiguration.clientSecret(), is("client-secret"));
+        assertThat(keycloakConfiguration.keycloakEndpoint(), is("https://example.co.in"));
+        assertThat(keycloakConfiguration.clientId(), is("client-id"));
+        assertThat(keycloakConfiguration.clientSecret(), is("client-secret"));
     }
 
     @Test
     public void shouldSerializeToJSON() throws Exception {
-        OktaConfiguration oktaConfiguration = new OktaConfiguration(
+        KeycloakConfiguration keycloakConfiguration = new KeycloakConfiguration(
                 "https://example.co.in", "client-id", "client-secret");
 
         String expectedJSON = "{\n" +
-                "  \"OktaEndpoint\": \"https://example.co.in\",\n" +
+                "  \"KeycloakEndpoint\": \"https://example.co.in\",\n" +
                 "  \"ClientId\": \"client-id\",\n" +
                 "  \"ClientSecret\": \"client-secret\"\n" +
                 "}";
 
-        JSONAssert.assertEquals(expectedJSON, oktaConfiguration.toJSON(), true);
+        JSONAssert.assertEquals(expectedJSON, keycloakConfiguration.toJSON(), true);
 
     }
 
     @Test
     public void shouldConvertConfigurationToProperties() throws Exception {
-        OktaConfiguration oktaConfiguration = new OktaConfiguration(
+        KeycloakConfiguration keycloakConfiguration = new KeycloakConfiguration(
                 "https://example.co.in", "client-id", "client-secret");
 
-        final Map<String, String> properties = oktaConfiguration.toProperties();
+        final Map<String, String> properties = keycloakConfiguration.toProperties();
 
-        assertThat(properties, hasEntry("OktaEndpoint", "https://example.co.in"));
+        assertThat(properties, hasEntry("KeycloakEndpoint", "https://example.co.in"));
         assertThat(properties, hasEntry("ClientId", "client-id"));
         assertThat(properties, hasEntry("ClientSecret", "client-secret"));
     }

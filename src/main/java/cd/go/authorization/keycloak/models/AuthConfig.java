@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,13 +26,13 @@ public class AuthConfig {
 
     @Expose
     @SerializedName("configuration")
-    private OktaConfiguration configuration;
+    private KeycloakConfiguration configuration;
 
     public String getId() {
         return id;
     }
 
-    public OktaConfiguration getConfiguration() {
+    public KeycloakConfiguration getConfiguration() {
         return configuration;
     }
 }

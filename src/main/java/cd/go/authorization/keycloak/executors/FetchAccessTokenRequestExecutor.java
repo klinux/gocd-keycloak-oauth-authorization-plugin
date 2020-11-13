@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.exceptions.NoAuthorizationConfigurationException;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.models.TokenInfo;
-import cd.go.authorization.okta.requests.FetchAccessTokenRequest;
+import cd.go.authorization.keycloak.exceptions.NoAuthorizationConfigurationException;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.models.TokenInfo;
+import cd.go.authorization.keycloak.requests.FetchAccessTokenRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
@@ -35,8 +35,8 @@ public class FetchAccessTokenRequestExecutor implements RequestExecutor {
             throw new NoAuthorizationConfigurationException("[Get Access Token] No authorization configuration found.");
         }
 
-        final OktaConfiguration configuration = request.authConfigs().get(0).getConfiguration();
-        final TokenInfo tokenInfo = configuration.oktaApiClient().fetchAccessToken(request.requestParameters());
+        final KeycloakConfiguration configuration = request.authConfigs().get(0).getConfiguration();
+        final TokenInfo tokenInfo = configuration.keycloakApiClient().fetchAccessToken(request.requestParameters());
 
         return DefaultGoPluginApiResponse.success(tokenInfo.toJSON());
     }

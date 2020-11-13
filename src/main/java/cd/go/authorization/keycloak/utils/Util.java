@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.utils;
+package cd.go.authorization.keycloak.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

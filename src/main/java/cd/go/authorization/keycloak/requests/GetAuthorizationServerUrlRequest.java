@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.CallbackURL;
-import cd.go.authorization.okta.executors.GetAuthorizationServerUrlRequestExecutor;
-import cd.go.authorization.okta.models.AuthConfig;
+import cd.go.authorization.keycloak.CallbackURL;
+import cd.go.authorization.keycloak.executors.GetAuthorizationServerUrlRequestExecutor;
+import cd.go.authorization.keycloak.models.AuthConfig;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;

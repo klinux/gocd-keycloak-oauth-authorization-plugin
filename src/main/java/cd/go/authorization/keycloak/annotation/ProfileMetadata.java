@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.annotation;
+package cd.go.authorization.keycloak.annotation;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import static cd.go.authorization.okta.utils.Util.isBlank;
-import static cd.go.authorization.okta.utils.Util.isNotBlank;
+import static cd.go.authorization.keycloak.utils.Util.isBlank;
+import static cd.go.authorization.keycloak.utils.Util.isNotBlank;
 
 public class ProfileMetadata<T extends Metadata> {
 

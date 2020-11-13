@@ -16,9 +16,9 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.exceptions.NoSuchRequestHandlerException;
-import cd.go.authorization.okta.executors.*;
-import cd.go.authorization.okta.requests.*;
+import cd.go.authorization.keycloak.exceptions.NoSuchRequestHandlerException;
+import cd.go.authorization.keycloak.executors.*;
+import cd.go.authorization.keycloak.requests.*;
 import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
@@ -28,11 +28,11 @@ import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
-import static cd.go.authorization.okta.Constants.PLUGIN_IDENTIFIER;
+import static cd.go.authorization.keycloak.Constants.PLUGIN_IDENTIFIER;
 
 @Extension
 public class KeycloakPlugin implements GoPlugin {
-    public static final Logger LOG = Logger.getLoggerFor(OktaPlugin.class);
+    public static final Logger LOG = Logger.getLoggerFor(KeycloakPlugin.class);
 
     private GoApplicationAccessor accessor;
 

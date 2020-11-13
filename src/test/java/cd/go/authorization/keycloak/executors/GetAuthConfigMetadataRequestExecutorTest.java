@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.annotation.MetadataHelper;
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.annotation.MetadataHelper;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class GetAuthConfigMetadataRequestExecutorTest {
     public void shouldSerializeAllFields() throws Exception {
         GoPluginApiResponse response = new GetAuthConfigMetadataRequestExecutor().execute();
         List list = new Gson().fromJson(response.responseBody(), List.class);
-        assertEquals(list.size(), MetadataHelper.getMetadata(OktaConfiguration.class).size());
+        assertEquals(list.size(), MetadataHelper.getMetadata(KeycloakConfiguration.class).size());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GetAuthConfigMetadataRequestExecutorTest {
         assertThat(response.responseCode(), is(200));
         String expectedJSON = "[\n" +
                 "  {\n" +
-                "    \"key\": \"OktaEndpoint\",\n" +
+                "    \"key\": \"KeycloakEndpoint\",\n" +
                 "    \"metadata\": {\n" +
                 "      \"required\": true,\n" +
                 "      \"secure\": false\n" +

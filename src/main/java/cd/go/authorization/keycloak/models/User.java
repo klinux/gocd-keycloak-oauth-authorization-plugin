@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
-import cd.go.authorization.okta.OktaUser;
+import cd.go.authorization.keycloak.KeycloakUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -42,7 +42,7 @@ public class User {
         this.emailId = emailId == null ? null : emailId.toLowerCase().trim();
     }
 
-    public User(OktaUser userProfile) {
+    public User(KeycloakUser userProfile) {
         this(userProfile.getEmail(), userProfile.getName(), userProfile.getEmail());
     }
 

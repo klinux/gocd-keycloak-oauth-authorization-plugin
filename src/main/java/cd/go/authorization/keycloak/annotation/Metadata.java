@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.annotation;
+package cd.go.authorization.keycloak.annotation;
 
 public interface Metadata {
     boolean isRequired();

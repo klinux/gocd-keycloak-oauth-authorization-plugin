@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.utils.Util;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.Test;
@@ -35,6 +35,6 @@ public class GetPluginIconRequestExecutorTest {
         HashMap<String, String> hashMap = new Gson().fromJson(response.responseBody(), HashMap.class);
         assertThat(hashMap.size(), is(2));
         assertThat(hashMap.get("content_type"), is("image/png"));
-        assertThat(Util.readResourceBytes("/okta-logo.png"), is(getDecoder().decode(hashMap.get("data"))));
+        assertThat(Util.readResourceBytes("/keycloak.svg"), is(getDecoder().decode(hashMap.get("data"))));
     }
 }

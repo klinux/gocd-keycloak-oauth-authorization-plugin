@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import static cd.go.authorization.okta.utils.Util.GSON;
+import static cd.go.authorization.keycloak.utils.Util.GSON;
 
 public class Role {
     @Expose
@@ -32,13 +32,13 @@ public class Role {
 
     @Expose
     @SerializedName("configuration")
-    private OktaRoleConfiguration configuration;
+    private KeycloakRoleConfiguration configuration;
 
     public String name() {
         return name;
     }
 
-    public OktaRoleConfiguration roleConfiguration() {
+    public KeycloakRoleConfiguration roleConfiguration() {
         return configuration;
     }
 

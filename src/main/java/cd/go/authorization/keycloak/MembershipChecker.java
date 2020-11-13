@@ -16,17 +16,17 @@
 
 package cd.go.authorization.keycloak;
 
-import cd.go.authorization.okta.models.AuthConfig;
+import cd.go.authorization.keycloak.models.AuthConfig;
 
 import java.io.IOException;
 import java.util.List;
 
-import static cd.go.authorization.okta.OktaPlugin.LOG;
+import static cd.go.authorization.keycloak.KeycloakPlugin.LOG;
 import static java.text.MessageFormat.format;
 
 public class MembershipChecker {
 
-    public boolean isAMemberOfAtLeastOneGroup(OktaUser loggedInUser, AuthConfig authConfig, List<String> groupsAllowed) throws IOException {
+    public boolean isAMemberOfAtLeastOneGroup(KeycloakUser loggedInUser, AuthConfig authConfig, List<String> groupsAllowed) throws IOException {
         if (groupsAllowed.isEmpty()) {
             LOG.info("[MembershipChecker] No groups provided.");
             return false;
@@ -35,7 +35,7 @@ public class MembershipChecker {
         return checkMembershipUsingUsersAccessToken(loggedInUser, groupsAllowed);
     }
 
-    private boolean checkMembershipUsingUsersAccessToken(OktaUser loggedInUser, List<String> groupsAllowed) throws IOException {
+    private boolean checkMembershipUsingUsersAccessToken(KeycloakUser loggedInUser, List<String> groupsAllowed) throws IOException {
         final List<String> myGroups = loggedInUser.groups();
 
         for (String groupName : myGroups) {

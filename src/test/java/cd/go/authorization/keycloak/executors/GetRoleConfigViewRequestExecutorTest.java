@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.annotation.MetadataHelper;
-import cd.go.authorization.okta.annotation.ProfileMetadata;
-import cd.go.authorization.okta.models.OktaRoleConfiguration;
-import cd.go.authorization.okta.utils.Util;
+import cd.go.authorization.keycloak.annotation.MetadataHelper;
+import cd.go.authorization.keycloak.annotation.ProfileMetadata;
+import cd.go.authorization.keycloak.models.KeycloakRoleConfiguration;
+import cd.go.authorization.keycloak.utils.Util;
 import com.google.gson.Gson;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.jsoup.Jsoup;
@@ -41,7 +41,7 @@ public class GetRoleConfigViewRequestExecutorTest {
         String template = Util.readResource("/role-config.template.html");
         final Document document = Jsoup.parse(template);
 
-        final List<ProfileMetadata> metadataList = MetadataHelper.getMetadata(OktaRoleConfiguration.class);
+        final List<ProfileMetadata> metadataList = MetadataHelper.getMetadata(KeycloakRoleConfiguration.class);
         for (ProfileMetadata field : metadataList) {
             final Elements inputFieldForKey = document.getElementsByAttributeValue("ng-model", field.getKey());
             assertThat(inputFieldForKey, hasSize(1));
@@ -53,7 +53,7 @@ public class GetRoleConfigViewRequestExecutorTest {
         }
 
         final Elements inputs = document.select("textarea,input,select");
-        assertThat("should contains only inputs that defined in OktaRoleConfiguration.java",inputs, hasSize(metadataList.size()));
+        assertThat("should contains only inputs that defined in KeycloakRoleConfiguration.java",inputs, hasSize(metadataList.size()));
     }
 
     @Test

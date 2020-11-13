@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.UserAuthenticationRequestExecutor;
-import cd.go.authorization.okta.models.AuthConfig;
+import cd.go.authorization.keycloak.executors.FetchAccessTokenRequestExecutor;
+import cd.go.authorization.keycloak.models.AuthConfig;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,13 +25,13 @@ import org.mockito.Mock;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class UserAuthenticationRequestTest {
+public class FetchAccessTokenRequestTest {
     @Mock
     private GoPluginApiRequest apiRequest;
 
@@ -41,22 +41,14 @@ public class UserAuthenticationRequestTest {
     }
 
     @Test
-    public void shouldDeserializeGoPluginApiRequestToUserAuthenticationRequest() throws Exception {
+    public void shouldDeserializeGoPluginApiRequestToFetchAccessTokenRequest() throws Exception {
         String responseBody = "{\n" +
-                "  \"authorization_server_callback_url\": \"https://redirect.url\",\n" +
-                "  \"credentials\": {\n" +
-                "    \"access_token\": \"access-token\",\n" +
-                "    \"token_type\": \"token\",\n" +
-                "    \"expires_in\": 3600,\n" +
-                "    \"scope\": \"profile\",\n" +
-                "    \"id_token\": \"id-token\"\n" +
-                "  },\n" +
                 "  \"auth_configs\": [\n" +
                 "    {\n" +
-                "      \"id\": \"google-config\",\n" +
+                "      \"id\": \"google-auth-config\",\n" +
                 "      \"configuration\": {\n" +
+                "        \"KeycloakEndpoint\": \"https://example.co.in\",\n" +
                 "        \"ClientId\": \"client-id\",\n" +
-                "        \"OktaEndpoint\": \"https://example.com\",\n" +
                 "        \"ClientSecret\": \"client-secret\"\n" +
                 "      }\n" +
                 "    }\n" +
@@ -65,16 +57,15 @@ public class UserAuthenticationRequestTest {
 
         when(apiRequest.requestBody()).thenReturn(responseBody);
 
-        final UserAuthenticationRequest request = UserAuthenticationRequest.from(apiRequest);
+        final FetchAccessTokenRequest request = FetchAccessTokenRequest.from(apiRequest);
 
         assertThat(request.authConfigs(), hasSize(1));
-        assertThat(request.executor(), instanceOf(UserAuthenticationRequestExecutor.class));
+        assertThat(request.executor(), instanceOf(FetchAccessTokenRequestExecutor.class));
 
         final AuthConfig authConfig = request.authConfigs().get(0);
-
-        assertThat(authConfig.getId(), is("google-config"));
+        assertThat(authConfig.getId(), is("google-auth-config"));
+        assertThat(authConfig.getConfiguration().keycloakEndpoint(), is("https://example.co.in"));
         assertThat(authConfig.getConfiguration().clientId(), is("client-id"));
         assertThat(authConfig.getConfiguration().clientSecret(), is("client-secret"));
-        assertThat(authConfig.getConfiguration().oktaEndpoint(), is("https://example.com"));
     }
 }

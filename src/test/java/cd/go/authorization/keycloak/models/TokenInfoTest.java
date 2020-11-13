@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.models;
+package cd.go.authorization.keycloak.models;
 
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;

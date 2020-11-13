@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.annotation.MetadataHelper;
-import cd.go.authorization.okta.annotation.ProfileMetadata;
-import cd.go.authorization.okta.models.OktaConfiguration;
+import cd.go.authorization.keycloak.annotation.MetadataHelper;
+import cd.go.authorization.keycloak.annotation.ProfileMetadata;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
@@ -30,7 +30,7 @@ public class GetAuthConfigMetadataRequestExecutor implements RequestExecutor {
     private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
     public GoPluginApiResponse execute() throws Exception {
-        final List<ProfileMetadata> authConfigMetadata = MetadataHelper.getMetadata(OktaConfiguration.class);
+        final List<ProfileMetadata> authConfigMetadata = MetadataHelper.getMetadata(KeycloakConfiguration.class);
         return DefaultGoPluginApiResponse.success( GSON.toJson(authConfigMetadata));
     }
 }

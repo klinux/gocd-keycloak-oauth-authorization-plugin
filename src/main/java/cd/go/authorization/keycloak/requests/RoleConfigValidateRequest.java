@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.requests;
+package cd.go.authorization.keycloak.requests;
 
-import cd.go.authorization.okta.executors.RequestExecutor;
-import cd.go.authorization.okta.models.OktaRoleConfiguration;
+import cd.go.authorization.keycloak.executors.RequestExecutor;
+import cd.go.authorization.keycloak.models.KeycloakRoleConfiguration;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 
 public class RoleConfigValidateRequest extends Request {
-    private final OktaRoleConfiguration oktaRoleConfiguration;
+    private final KeycloakRoleConfiguration keycloakRoleConfiguration;
 
-    public RoleConfigValidateRequest(OktaRoleConfiguration oktaRoleConfiguration) {
-        this.oktaRoleConfiguration = oktaRoleConfiguration;
+    public RoleConfigValidateRequest(KeycloakRoleConfiguration keycloakRoleConfiguration) {
+        this.keycloakRoleConfiguration = keycloakRoleConfiguration;
     }
 
     @Override
@@ -32,12 +32,12 @@ public class RoleConfigValidateRequest extends Request {
         return new RoleConfigValidateRequestExecutor(this);
     }
 
-    public OktaRoleConfiguration oktaRoleConfiguration() {
-        return oktaRoleConfiguration;
+    public KeycloakRoleConfiguration keycloakRoleConfiguration() {
+        return keycloakRoleConfiguration;
     }
 
     public static final RoleConfigValidateRequest from(GoPluginApiRequest apiRequest) {
-        return new RoleConfigValidateRequest(OktaRoleConfiguration.fromJSON(apiRequest.requestBody()));
+        return new RoleConfigValidateRequest(KeycloakRoleConfiguration.fromJSON(apiRequest.requestBody()));
     }
 
 }

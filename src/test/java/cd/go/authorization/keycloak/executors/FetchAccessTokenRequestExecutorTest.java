@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package cd.go.authorization.okta.executors;
+package cd.go.authorization.keycloak.executors;
 
-import cd.go.authorization.okta.OktaApiClient;
-import cd.go.authorization.okta.exceptions.NoAuthorizationConfigurationException;
-import cd.go.authorization.okta.models.AuthConfig;
-import cd.go.authorization.okta.models.OktaConfiguration;
-import cd.go.authorization.okta.models.TokenInfo;
-import cd.go.authorization.okta.requests.FetchAccessTokenRequest;
+import cd.go.authorization.keycloak.KeycloakApiClient;
+import cd.go.authorization.keycloak.exceptions.NoAuthorizationConfigurationException;
+import cd.go.authorization.keycloak.models.AuthConfig;
+import cd.go.authorization.keycloak.models.KeycloakConfiguration;
+import cd.go.authorization.keycloak.models.TokenInfo;
+import cd.go.authorization.keycloak.requests.FetchAccessTokenRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,17 +45,17 @@ public class FetchAccessTokenRequestExecutorTest {
     @Mock
     private AuthConfig authConfig;
     @Mock
-    private OktaConfiguration oktaConfiguration;
+    private KeycloakConfiguration keycloakConfiguration;
     @Mock
-    private OktaApiClient oktaApiClient;
+    private KeycloakApiClient keycloakApiClient;
     private FetchAccessTokenRequestExecutor executor;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
 
-        when(authConfig.getConfiguration()).thenReturn(oktaConfiguration);
-        when(oktaConfiguration.oktaApiClient()).thenReturn(oktaApiClient);
+        when(authConfig.getConfiguration()).thenReturn(keycloakConfiguration);
+        when(keycloakConfiguration.keycloakApiClient()).thenReturn(keycloakApiClient);
 
         executor = new FetchAccessTokenRequestExecutor(request);
     }
@@ -76,7 +76,7 @@ public class FetchAccessTokenRequestExecutorTest {
 
         when(request.authConfigs()).thenReturn(Collections.singletonList(authConfig));
         when(request.requestParameters()).thenReturn(Collections.singletonMap("code", "code-received-in-previous-step"));
-        when(oktaApiClient.fetchAccessToken(request.requestParameters())).thenReturn(tokenInfo);
+        when(keycloakApiClient.fetchAccessToken(request.requestParameters())).thenReturn(tokenInfo);
 
         final GoPluginApiResponse response = executor.execute();
 
