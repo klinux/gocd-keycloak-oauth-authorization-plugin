@@ -13,7 +13,7 @@ on Windows.
 
 ## Configuration
 
-###  Configure Keycloak API Issuer
+###  Configure Keycloak Client
 
 1. Sign in Keycloak Console
 2. Select the realm that you want to configure. Ex. **Master**
