@@ -90,6 +90,7 @@ The `Authorization Configuration` is used to configure a connection to an Keyclo
     </admins>
 </security>
 ```
-> If you are using email as account in Keycloak, replace your_account_from_keycloak with your email address in **user** inside **admins**.
+> Replace `your_account_from_keycloak` with your email address or user account in **user** inside **admins**.  
+>Ex.: `<user>admin</user>` or `<user>admin@example.com</user>`. 
 
 > The account that you are using to configure Keycloak, will become an administrator of GoCD, if you are using the UI to configure.
