@@ -12,6 +12,7 @@ and restart the server. The `GO_SERVER_DIR` is usually `/var/lib/go-server` on L
 on Windows.
 
 ## Configuration
+Provide details of the Keycloak server to connect to via an [Authorization Configuration](AUTHORIZATION_CONFIGURATION.md).
 
 ###  Configure Keycloak Client
 

@@ -4,7 +4,7 @@ The plugin allows user to login in GoCD using an Keycloak account. It is impleme
 
 # Installation
 
-Installation documentation available [here](INSTALL.md).
+Installation documentation available [here](docs/INSTALL.md).
 
 # Capabilities
 
