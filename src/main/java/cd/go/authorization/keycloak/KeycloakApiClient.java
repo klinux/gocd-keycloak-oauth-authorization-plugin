@@ -126,12 +126,10 @@ public class KeycloakApiClient {
                 .addPathSegments("userinfo")
                 .toString();
 
-        final RequestBody formBody = RequestBody.create(null, "");
-
         final Request request = new Request.Builder()
                 .url(userProfileUrl)
                 .addHeader("Authorization", "Bearer " + tokenInfo.accessToken())
-                .post(formBody)
+                .get()
                 .build();
 
         return executeRequest(request, response -> KeycloakUser.fromJSON(response.body().string()));

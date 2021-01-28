@@ -108,7 +108,7 @@ public class KeycloakApiClientTest {
         assertThat(KeycloakUser.getEmail(), is("foo@bar.com"));
 
         RecordedRequest request = server.takeRequest();
-        assertEquals("POST /auth/realms/master/protocol/openid-connect/userinfo HTTP/1.1", request.getRequestLine());
+        assertEquals("GET /auth/realms/master/protocol/openid-connect/userinfo HTTP/1.1", request.getRequestLine());
         assertEquals("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9", request.getHeader("Authorization"));
     }
 
