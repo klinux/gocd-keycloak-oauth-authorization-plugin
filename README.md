@@ -2,6 +2,8 @@
 
 The plugin allows user to login in GoCD using an Keycloak account. It is implemented using [GoCD authorization endpoint](https://plugin-api.gocd.org/current/authorization/).
 
+Starting with release 1.1.0, this plugin will work by default with Keycloak >= 17.0.0 and GOCD >= 20.3.0
+
 # Installation
 
 Installation documentation available [here](docs/INSTALL.md).
@@ -15,6 +17,7 @@ Installation documentation available [here](docs/INSTALL.md).
 To build the jar, run `./gradlew clean test assemble`
 
 ### Information about this plugin
+
 This plugin was created based on [okta-oauth-authorization-plugin](https://github.com/szamfirov/gocd-okta-oauth-authorization-plugin)
 
 ## License
