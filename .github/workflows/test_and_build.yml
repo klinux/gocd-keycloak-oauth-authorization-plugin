@@ -23,6 +23,9 @@ jobs:
   previewGithubRelease:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      GITHUB_USER: "klinux"
+      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     steps:
       - uses: actions/checkout@v3
         with:
