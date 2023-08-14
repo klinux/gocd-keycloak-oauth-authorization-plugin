@@ -21,7 +21,7 @@ Provide details of the Keycloak server to connect to via an [Authorization Confi
 3. Click in **Clients** menu 
 4. Click **Add** button
 5. On the form insert the client name
-6. On the next page, set this configs:
+6. On the next page, set these configs:
     1. In **Access Type** select **Confidential**
     2. In **Valid Redirect URIs** insert the URL of GoCD, ex.: **http://localhost:8153**
     3. In **Credentials** tab copy value of **Secret**
@@ -32,10 +32,10 @@ Provide details of the Keycloak server to connect to via an [Authorization Confi
 2. Select the realm that you want to configure. Ex. **Master**
 3. Click in **Groups** menu
     1. Click **Add Group** button
-    2. Insert the name of **Group** and it description
+    2. Insert the name of **Group** and the description
     3. Save the **Group**
     4. Select the **user** that you want to configure this role
     5. Select **Groups** tab and select the group in **Available Groups**
 
 > Obs.: By default Keycloak do not provide group definition on user session, to get this, edit 
->**profile** scope and add groups in **Mappers** tab, thie scope needs to be added as builtin.
+>**profile** scope and add groups in **Mappers** tab, the scope needs to be added as builtin.

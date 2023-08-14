@@ -2,7 +2,7 @@ version: '3'
 
 services:
   keycloak:
-      image: jboss/keycloak:11.0.3
+      image: quay.io/keycloak/keycloak:17.0.1-legacy
       environment:
         ROOT_LOGLEVEL: INFO
         KEYCLOAK_USER: admin
@@ -10,10 +10,16 @@ services:
         DB_VENDOR: h2
       ports:
         - 8080:8080
+      volumes:
+        - data:/opt/jboss/keycloak/standalone/data
   gocd:
-    image: gocd/gocd-server:v20.9.0
+    image: gocd/gocd-server:v22.3.0
     volumes:
+      - data:/godata
       - ./plugins:/godata/plugins
     ports:
       - 8153:8153
       - 8154:8154
+
+volumes:
+  data:

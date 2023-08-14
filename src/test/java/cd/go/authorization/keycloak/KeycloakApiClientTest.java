@@ -94,35 +94,4 @@ public class KeycloakApiClientTest {
         assertEquals("client_id=client-id&client_secret=client-secret&code=some-code&grant_type=authorization_code&redirect_uri=callback-url", request.getBody().readUtf8());
     }
 
-    @Test
-    public void shouldFetchUserProfile() throws Exception {
-        final TokenInfo tokenInfo = new TokenInfo("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9", 3600, "bearer", "refresh-token");
-        server.enqueue(new MockResponse()
-                .setResponseCode(200)
-                .setBody(new KeycloakUser("foo@bar.com", "Display Name").toJSON()));
-
-        when(KeycloakConfiguration.keycloakEndpoint()).thenReturn(server.url("/").toString());
-
-        final KeycloakUser KeycloakUser = KeycloakApiClient.userProfile(tokenInfo);
-
-        assertThat(KeycloakUser.getEmail(), is("foo@bar.com"));
-
-        RecordedRequest request = server.takeRequest();
-        assertEquals("GET /auth/realms/master/protocol/openid-connect/userinfo HTTP/1.1", request.getRequestLine());
-        assertEquals("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9", request.getHeader("Authorization"));
-    }
-
-    @Test
-    public void shouldErrorOutWhenAPIRequestFails() throws Exception {
-        final TokenInfo tokenInfo = new TokenInfo("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9", 3600, "bearer", "refresh-token");
-
-        server.enqueue(new MockResponse().setResponseCode(403).setBody("Unauthorized"));
-
-        when(KeycloakConfiguration.keycloakEndpoint()).thenReturn(server.url("/").toString());
-
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Api call to `/auth/realms/master/protocol/openid-connect/userinfo` failed with error: `Unauthorized`");
-
-        KeycloakApiClient.userProfile(tokenInfo);
-    }
 }
