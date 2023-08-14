@@ -15,24 +15,37 @@
  */
 
 apply plugin: 'java'
+apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-helpers/master/helper.gradle?_=${(int) (new Date().toInstant().epochSecond / 60)}"
 
-apply from: 'plugin-common.gradle'
+gocdPlugin {
+    id = 'cd.go.authorization.keycloak'
+    pluginVersion = '2.0.0'
+    goCdVersion = '19.2.0'
+    name = 'Keycloak oauth authorization plugin'
+    description = 'Keycloak oauth authorization plugin for GoCD'
+    vendorName = 'klinux'
+    vendorUrl = 'https://github.com/klinux/gocd-keycloak-oauth-authorization-plugin'
 
-project.ext.pluginVersion = '2.0.0'
-project.ext.fullVersion = project.distVersion ? "${project.pluginVersion}-${project.distVersion}" : project.pluginVersion
+    githubRepo {
+        owner = System.getenv('GITHUB_USER') ?: 'klinux'
+        repo = 'gocd-keycloak-oauth-authorization-plugin'
+        token = System.getenv('GITHUB_TOKEN') ?: 'bad-token'
+    }
 
-version = project.fullVersion
+    pluginProject = project
+
+    prerelease = !"No".equalsIgnoreCase(System.getenv('PRERELEASE'))
+    assetsToRelease = [project.tasks.jar]
+
+    licenseReport {
+        excludes = [
+                'com.squareup.okio:okio'
+        ]
+    }
+}
+
 group = 'cd.go'
-
-project.ext.pluginDesc = [
-        id         : 'cd.go.authorization.keycloak',
-        version    : project.fullVersion,
-        goCdVersion: '19.2.0',
-        name       : 'Keycloak oauth authorization plugin',
-        description: 'Keycloak oauth authorization plugin for GoCD',
-        vendorName : 'klinux',
-        vendorUrl  : 'https://github.com/klinux/gocd-keycloak-oauth-authorization-plugin'
-]
+version = gocdPlugin.fullVersion(project)
 
 repositories {
     jcenter()
@@ -59,18 +72,6 @@ dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
-processResources {
-    from("src/main/resource-templates") {
-        filesMatching('plugin.xml') {
-            expand project.pluginDesc
-        }
-
-        filesMatching('plugin.properties') {
-            expand project.pluginDesc
-        }
-    }
-}
-
 tasks.withType(Jar) { jarTask ->
     preserveFileTimestamps = false
     reproducibleFileOrder = true
@@ -84,10 +85,10 @@ tasks.withType(Jar) { jarTask ->
 
     manifest {
         attributes(
-                'Go-Version': project.pluginDesc.goCdVersion,
-                'Plugin-Revision': project.pluginDesc.version,
-                'Implementation-Title': project.name,
-                'Implementation-Version': project.version,
+                'Go-Version': project.gocdPlugin.goCdVersion,
+                'Plugin-Revision': project.gocdPlugin.pluginVersion,
+                'Implementation-Title': project.gocdPlugin.name,
+                'Implementation-Version': project.gocdPlugin.pluginVersion,
                 'Source-Compatibility': project.sourceCompatibility,
                 'Target-Compatibility': project.targetCompatibility
         )
