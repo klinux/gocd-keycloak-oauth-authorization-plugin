@@ -73,7 +73,7 @@ public class KeycloakApiClientTest {
     public void shouldReturnAuthorizationServerUrl() throws Exception {
         final String authorizationServerUrl = KeycloakApiClient.authorizationServerUrl("call-back-url");
 
-        assertThat(authorizationServerUrl, startsWith("https://example.com/auth/realms/master/protocol/openid-connect/auth?client_id=client-id&redirect_uri=call-back-url&response_type=code&scope=openid%20profile%20email%20roles&state="));
+        assertThat(authorizationServerUrl, startsWith("https://example.com/auth/realms/master/protocol/openid-connect/auth?client_id=client-id&redirect_uri=call-back-url&response_type=code&scope=openid%20profile%20email%20groups%20roles&state="));
     }
 
     @Test
