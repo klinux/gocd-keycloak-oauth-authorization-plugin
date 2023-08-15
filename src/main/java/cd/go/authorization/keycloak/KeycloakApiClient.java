@@ -119,11 +119,11 @@ public class KeycloakApiClient {
         String accessToken = tokenInfo.accessToken();
 
         // Check status of token
-        LOG.info("[KeycloakApiClient] Token Before: " + tokenInfo.accessToken());
+        LOG.debug("[KeycloakApiClient] Token Before: " + tokenInfo.accessToken());
         if (!introspectToken(tokenInfo.accessToken())) {
-            LOG.info("[KeycloakApiClient] Token status: Not Active");
+            LOG.debug("[KeycloakApiClient] Token status: Not Active");
             if (fetchRefreshToken(tokenInfo.refreshToken()).responseCode() == 200) {
-                LOG.info("[KeycloakApiClient] Token After: " + tokenInfo.accessToken());
+                LOG.debug("[KeycloakApiClient] Token After: " + tokenInfo.accessToken());
                 accessToken = tokenInfo.accessToken();
             }
         }
