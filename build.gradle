@@ -105,12 +105,7 @@ sourceSets {
 }
 
 jar {
-    from(configurations.compile) {
+    from(configurations.runtimeClasspath) {
         into "lib/"
     }
-
-//    This is useful for debugging
-//    from(sourceSets.main.java) {
-//        into "/"
-//    }
 }
