@@ -73,7 +73,7 @@ public class KeycloakApiClient {
                 .addQueryParameter("client_id", keycloakConfiguration.clientId())
                 .addQueryParameter("redirect_uri", callbackUrl)
                 .addQueryParameter("response_type", "code")
-                .addQueryParameter("scope", "openid profile email roles")
+                .addQueryParameter("scope", "openid profile email groups roles")
                 .addQueryParameter("state", UUID.randomUUID().toString())
                 .addQueryParameter("nonce", UUID.randomUUID().toString())
                 .build().toString();
@@ -242,7 +242,7 @@ public class KeycloakApiClient {
                 .build();
 
         TokenInfo tokenInfo = executeRequest(request, response -> TokenInfo.fromJSON(response.body().string()));
-        LOG.info("[KeycloakApiClient] Token Info: " + tokenInfo.toJSON().toString());
+
         return DefaultGoPluginApiResponse.success(tokenInfo.toJSON());
     }
 }
