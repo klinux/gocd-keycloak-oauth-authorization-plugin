@@ -34,6 +34,11 @@ public class KeycloakConfiguration implements Validatable {
     private String keycloakEndpoint;
 
     @Expose
+    @SerializedName("KeycloakContextPath")
+    @ProfileField(key = "KeycloakContextPath", required = true, secure = false)
+    private Boolean keycloakContextPath;
+
+    @Expose
     @SerializedName("KeycloakRealm")
     @ProfileField(key = "KeycloakRealm", required = true, secure = false)
     private String keycloakRealm;
@@ -47,6 +52,11 @@ public class KeycloakConfiguration implements Validatable {
     @SerializedName("ClientSecret")
     @ProfileField(key = "ClientSecret", required = true, secure = true)
     private String clientSecret;
+
+    @Expose
+    @SerializedName("KeycloakScopes")
+    @ProfileField(key = "KeycloakScopes", required = true, secure = false)
+    private String keycloakScopes;
 
     private KeycloakApiClient keycloakApiClient;
 
@@ -63,6 +73,10 @@ public class KeycloakConfiguration implements Validatable {
         return keycloakEndpoint;
     }
 
+    public Boolean keycloakContextPath() {
+        return keycloakContextPath;
+    }
+
     public String keycloakRealm() {
         return keycloakRealm;
     }
@@ -73,6 +87,10 @@ public class KeycloakConfiguration implements Validatable {
 
     public String clientSecret() {
         return clientSecret;
+    }
+
+    public String keycloakScopes() {
+        return keycloakScopes;
     }
 
     public String toJSON() {

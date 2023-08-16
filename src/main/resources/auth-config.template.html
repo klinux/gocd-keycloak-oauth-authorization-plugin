@@ -98,6 +98,19 @@
     </div>
 
     <div class="form_item_block">
+        <label ng-class="{'is-invalid-label': GOINPUTNAME[KeycloakContextPath].$error.server}">Keycloak Context Path:<span class='asterix'>*</span>
+            <div class="tooltip-info">
+              <span class="tooltip-content">
+                Enable /auth Keycloak context path. In old keycloak versions, the /auth context is default. Disable it if you want to use Keycloak without this context path.
+              </span>
+            </div>
+        </label>
+        <input type="radio" ng-model="KeycloakContextPath" value="true" checked /> True
+        <input type="radio" ng-model="KeycloakContextPath" value="false" /> False
+        <span class="form_error form-error" ng-class="{'is-visible': GOINPUTNAME[KeycloakContextPath].$error.server}" ng-show="GOINPUTNAME[KeycloakContextPath].$error.server">{{GOINPUTNAME[KeycloakContextPath].$error.server}}</span>
+    </div>
+
+    <div class="form_item_block">
         <label ng-class="{'is-invalid-label': GOINPUTNAME[KeycloakRealm].$error.server}">Keycloak Realm:<span class='asterix'>*</span>
             <div class="tooltip-info">
               <span class="tooltip-content">
@@ -132,4 +145,17 @@
         <input ng-class="{'is-invalid-input': GOINPUTNAME[ClientSecret].$error.server}" type="password" ng-model="ClientSecret" ng-required="true"/>
         <span class="form_error form-error" ng-class="{'is-visible': GOINPUTNAME[ClientSecret].$error.server}" ng-show="GOINPUTNAME[ClientSecret].$error.server">{{GOINPUTNAME[ClientSecret].$error.server}}</span>
     </div>
+
+    <div class="form_item_block">
+        <label ng-class="{'is-invalid-label': GOINPUTNAME[KeycloakScopes].$error.server}">Keycloak Scopes:<span class='asterix'>*</span>
+            <div class="tooltip-info">
+              <span class="tooltip-content">
+                Set the scopes that you be requested to Keycloak. Default: openid profile email groups roles
+              </span>
+            </div>
+        </label>
+        <input ng-class="{'is-invalid-input': GOINPUTNAME[KeycloakScopes].$error.server}" type="text" ng-model="KeycloakScopes" value="openid profile email groups roles" ng-required="true"/>
+        <span class="form_error form-error" ng-class="{'is-visible': GOINPUTNAME[KeycloakScopes].$error.server}" ng-show="GOINPUTNAME[KeycloakScopes].$error.server">{{GOINPUTNAME[KeycloakScopes].$error.server}}</span>
+    </div>
+
 </div>

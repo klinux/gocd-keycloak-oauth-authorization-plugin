@@ -52,6 +52,13 @@ public class GetAuthConfigMetadataRequestExecutorTest {
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"key\": \"KeycloakContextPath\",\n" +
+                "    \"metadata\": {\n" +
+                "      \"required\": true,\n" +
+                "      \"secure\": false\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
                 "    \"key\": \"KeycloakRealm\",\n" +
                 "    \"metadata\": {\n" +
                 "      \"required\": true,\n" +
@@ -70,6 +77,13 @@ public class GetAuthConfigMetadataRequestExecutorTest {
                 "    \"metadata\": {\n" +
                 "      \"required\": true,\n" +
                 "      \"secure\": true\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"key\": \"KeycloakScopes\",\n" +
+                "    \"metadata\": {\n" +
+                "      \"required\": true,\n" +
+                "      \"secure\": false\n" +
                 "    }\n" +
                 "  }\n" +
                 "]";

@@ -25,7 +25,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 
 import java.util.Collections;
@@ -33,7 +32,7 @@ import java.util.Collections;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -44,9 +43,6 @@ public class KeycloakApiClientTest {
     private MockWebServer server;
     private KeycloakApiClient KeycloakApiClient;
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Before
     public void setUp() throws Exception {
         initMocks(this);
@@ -55,9 +51,11 @@ public class KeycloakApiClientTest {
         server.start();
 
         when(KeycloakConfiguration.keycloakEndpoint()).thenReturn("https://example.com");
+        when(KeycloakConfiguration.keycloakContextPath()).thenReturn(true);
         when(KeycloakConfiguration.keycloakRealm()).thenReturn("master");
         when(KeycloakConfiguration.clientId()).thenReturn("client-id");
         when(KeycloakConfiguration.clientSecret()).thenReturn("client-secret");
+        when(KeycloakConfiguration.keycloakScopes()).thenReturn("openid profile email groups roles");
 
         CallbackURL.instance().updateRedirectURL("callback-url");
 

@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<go-plugin id="${id}" version="1">
+<go-plugin id="${id}" version="2">
     <about>
         <name>${name}</name>
         <version>${version}</version>

@@ -52,6 +52,10 @@ public class AuthConfigValidateRequestExecutorTest {
                 "    \"key\": \"KeycloakEndpoint\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"message\": \"KeycloakContextPath must not be blank.\",\n" +
+                "    \"key\": \"KeycloakContextPath\"\n" +
+                "  },\n" +
+                "  {\n" +
                 "    \"message\": \"KeycloakRealm must not be blank.\",\n" +
                 "    \"key\": \"KeycloakRealm\"\n" +
                 "  },\n" +
@@ -62,6 +66,10 @@ public class AuthConfigValidateRequestExecutorTest {
                 "  {\n" +
                 "    \"message\": \"ClientSecret must not be blank.\",\n" +
                 "    \"key\": \"ClientSecret\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"message\": \"KeycloakScopes must not be blank.\",\n" +
+                "    \"key\": \"KeycloakScopes\"\n" +
                 "  }\n" +
                 "]";
 
