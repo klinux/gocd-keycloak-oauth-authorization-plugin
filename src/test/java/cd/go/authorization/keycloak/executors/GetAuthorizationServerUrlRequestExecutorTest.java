@@ -32,14 +32,12 @@ import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class GetAuthorizationServerUrlRequestExecutorTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     @Mock
     private GetAuthorizationServerUrlRequest request;
     @Mock
@@ -62,10 +60,8 @@ public class GetAuthorizationServerUrlRequestExecutorTest {
     public void shouldErrorOutIfAuthConfigIsNotProvided() throws Exception {
         when(request.authConfigs()).thenReturn(Collections.emptyList());
 
-        thrown.expect(NoAuthorizationConfigurationException.class);
-        thrown.expectMessage("[Authorization Server Url] No authorization configuration found.");
-
-        executor.execute();
+        Throwable thrown = assertThrows(NoAuthorizationConfigurationException.class, () -> executor.execute());
+        assertThat(thrown.getMessage(), is("[Authorization Server Url] No authorization configuration found."));
     }
 
     @Test

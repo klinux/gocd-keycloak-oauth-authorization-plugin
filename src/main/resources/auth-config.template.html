@@ -89,7 +89,7 @@
         <label ng-class="{'is-invalid-label': GOINPUTNAME[KeycloakEndpoint].$error.server}">Keycloak Endpoint:<span class='asterix'>*</span>
             <div class="tooltip-info">
               <span class="tooltip-content">
-                Your Keycloak authentication endpoint.
+                Your Keycloak authentication endpoint. If you have the context path /auth in you Keycloak, put the context here.
               </span>
             </div>
         </label>
@@ -132,4 +132,17 @@
         <input ng-class="{'is-invalid-input': GOINPUTNAME[ClientSecret].$error.server}" type="password" ng-model="ClientSecret" ng-required="true"/>
         <span class="form_error form-error" ng-class="{'is-visible': GOINPUTNAME[ClientSecret].$error.server}" ng-show="GOINPUTNAME[ClientSecret].$error.server">{{GOINPUTNAME[ClientSecret].$error.server}}</span>
     </div>
+
+    <div class="form_item_block">
+        <label ng-class="{'is-invalid-label': GOINPUTNAME[KeycloakScopes].$error.server}">Keycloak Scopes:<span class='asterix'>*</span>
+            <div class="tooltip-info">
+              <span class="tooltip-content">
+                Set the scopes that you be requested to Keycloak. Default: openid profile email groups roles
+              </span>
+            </div>
+        </label>
+        <input ng-class="{'is-invalid-input': GOINPUTNAME[KeycloakScopes].$error.server}" type="text" ng-model="KeycloakScopes" value="openid profile email groups roles" ng-required="true"/>
+        <span class="form_error form-error" ng-class="{'is-visible': GOINPUTNAME[KeycloakScopes].$error.server}" ng-show="GOINPUTNAME[KeycloakScopes].$error.server">{{GOINPUTNAME[KeycloakScopes].$error.server}}</span>
+    </div>
+
 </div>

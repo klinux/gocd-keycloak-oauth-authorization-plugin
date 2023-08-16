@@ -27,7 +27,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GetAuthConfigMetadataRequestExecutorTest {
 
@@ -70,6 +70,13 @@ public class GetAuthConfigMetadataRequestExecutorTest {
                 "    \"metadata\": {\n" +
                 "      \"required\": true,\n" +
                 "      \"secure\": true\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"key\": \"KeycloakScopes\",\n" +
+                "    \"metadata\": {\n" +
+                "      \"required\": true,\n" +
+                "      \"secure\": false\n" +
                 "    }\n" +
                 "  }\n" +
                 "]";

@@ -64,7 +64,6 @@ public class KeycloakApiClient {
 
         return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")
@@ -73,24 +72,24 @@ public class KeycloakApiClient {
                 .addQueryParameter("client_id", keycloakConfiguration.clientId())
                 .addQueryParameter("redirect_uri", callbackUrl)
                 .addQueryParameter("response_type", "code")
-                .addQueryParameter("scope", "openid profile email groups roles")
+                .addQueryParameter("scope", keycloakConfiguration.keycloakScopes())
                 .addQueryParameter("state", UUID.randomUUID().toString())
                 .addQueryParameter("nonce", UUID.randomUUID().toString())
                 .build().toString();
     }
 
     public TokenInfo fetchAccessToken(Map<String, String> params) throws Exception {
+        String realm = keycloakConfiguration.keycloakRealm();
         final String code = params.get("code");
+
         if (isBlank(code)) {
             throw new RuntimeException("[KeycloakApiClient] Authorization code must not be null.");
         }
 
         LOG.debug("[KeycloakApiClient] Fetching access token using authorization code.");
-        String realm = keycloakConfiguration.keycloakRealm();
 
         final String accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")
@@ -117,6 +116,7 @@ public class KeycloakApiClient {
     public KeycloakUser userProfile(TokenInfo tokenInfo) throws Exception {
         validateTokenInfo(tokenInfo);
         String accessToken = tokenInfo.accessToken();
+        String realm = keycloakConfiguration.keycloakRealm();
 
         // Check status of token
         LOG.debug("[KeycloakApiClient] Token Before: " + tokenInfo.accessToken());
@@ -129,11 +129,9 @@ public class KeycloakApiClient {
         }
 
         LOG.debug("[KeycloakApiClient] Fetching user profile using access token.");
-        String realm = keycloakConfiguration.keycloakRealm();
 
         final String userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")
@@ -182,7 +180,6 @@ public class KeycloakApiClient {
 
         final String introspectUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")
@@ -218,10 +215,9 @@ public class KeycloakApiClient {
         String client = keycloakConfiguration.clientId();
         String secret = keycloakConfiguration.clientSecret();
         String basicEncode = Base64.getEncoder().encodeToString((client + ":" + secret).getBytes());
-
+        
         final String refreshTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")

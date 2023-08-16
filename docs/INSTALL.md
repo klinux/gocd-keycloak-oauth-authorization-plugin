@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* GoCD server version v17.5.0 or above
+* GoCD server version v17.5.0 for version 1.0.x and 23.3.0 for 2.0.x.
 * Keycloak [API documentation](https://www.keycloak.org/docs-api/11.0/rest-api/index.html)
 
 ## Installation
