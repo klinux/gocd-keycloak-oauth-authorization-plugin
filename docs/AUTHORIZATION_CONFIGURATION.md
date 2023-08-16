@@ -7,6 +7,7 @@ The `Authorization Configuration` is used to configure a connection to an Keyclo
 3. Provide a unique identifier for this authorization configuration and select `Keycloak oauth authorization plugin` as the **Plugin**.
 
 4. **Keycloak Endpoint (`Mandatory`):** Specify your Keycloak Endpoint.
+> If you have the context /auth in you Keycloak, set the context path in Endpoint config.
 
     ![Keycloak Endpoint](images/keycloak_endpoint.png?raw=true "Keycloak Endpoint")
 
