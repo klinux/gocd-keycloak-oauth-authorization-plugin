@@ -34,11 +34,6 @@ public class KeycloakConfiguration implements Validatable {
     private String keycloakEndpoint;
 
     @Expose
-    @SerializedName("KeycloakContextPath")
-    @ProfileField(key = "KeycloakContextPath", required = true, secure = false)
-    private Boolean keycloakContextPath;
-
-    @Expose
     @SerializedName("KeycloakRealm")
     @ProfileField(key = "KeycloakRealm", required = true, secure = false)
     private String keycloakRealm;
@@ -71,10 +66,6 @@ public class KeycloakConfiguration implements Validatable {
 
     public String keycloakEndpoint() {
         return keycloakEndpoint;
-    }
-
-    public Boolean keycloakContextPath() {
-        return keycloakContextPath;
     }
 
     public String keycloakRealm() {

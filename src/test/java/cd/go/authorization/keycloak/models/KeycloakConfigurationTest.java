@@ -32,14 +32,12 @@ public class KeycloakConfigurationTest {
     public void shouldDeserializeKeycloakConfiguration() throws Exception {
         final KeycloakConfiguration keycloakConfiguration = KeycloakConfiguration.fromJSON("{\n" +
                 "  \"KeycloakEndpoint\": \"https://example.co.in\",\n" +
-                "  \"KeycloakContextPath\": true,\n" +
                 "  \"ClientId\": \"client-id\",\n" +
                 "  \"ClientSecret\": \"client-secret\",\n" +
                 "  \"KeycloakScopes\": \"openid profile email groups roles\"\n" +
                 "}");
 
         assertThat(keycloakConfiguration.keycloakEndpoint(), is("https://example.co.in"));
-        assertThat(keycloakConfiguration.keycloakContextPath(), is(true));
         assertThat(keycloakConfiguration.clientId(), is("client-id"));
         assertThat(keycloakConfiguration.clientSecret(), is("client-secret"));
         assertThat(keycloakConfiguration.keycloakScopes(), is("openid profile email groups roles"));

@@ -51,7 +51,6 @@ public class KeycloakApiClientTest {
         server.start();
 
         when(KeycloakConfiguration.keycloakEndpoint()).thenReturn("https://example.com");
-        when(KeycloakConfiguration.keycloakContextPath()).thenReturn(true);
         when(KeycloakConfiguration.keycloakRealm()).thenReturn("master");
         when(KeycloakConfiguration.clientId()).thenReturn("client-id");
         when(KeycloakConfiguration.clientSecret()).thenReturn("client-secret");
@@ -71,7 +70,7 @@ public class KeycloakApiClientTest {
     public void shouldReturnAuthorizationServerUrl() throws Exception {
         final String authorizationServerUrl = KeycloakApiClient.authorizationServerUrl("call-back-url");
 
-        assertThat(authorizationServerUrl, startsWith("https://example.com/auth/realms/master/protocol/openid-connect/auth?client_id=client-id&redirect_uri=call-back-url&response_type=code&scope=openid%20profile%20email%20groups%20roles&state="));
+        assertThat(authorizationServerUrl, startsWith("https://example.com/realms/master/protocol/openid-connect/auth?client_id=client-id&redirect_uri=call-back-url&response_type=code&scope=openid%20profile%20email%20groups%20roles&state="));
     }
 
     @Test
@@ -87,7 +86,7 @@ public class KeycloakApiClientTest {
         assertThat(tokenInfo.accessToken(), is("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9"));
 
         RecordedRequest request = server.takeRequest();
-        assertEquals("POST /auth/realms/master/protocol/openid-connect/token HTTP/1.1", request.getRequestLine());
+        assertEquals("POST /realms/master/protocol/openid-connect/token HTTP/1.1", request.getRequestLine());
         assertEquals("application/x-www-form-urlencoded", request.getHeader("Content-Type"));
         assertEquals("client_id=client-id&client_secret=client-secret&code=some-code&grant_type=authorization_code&redirect_uri=callback-url", request.getBody().readUtf8());
     }

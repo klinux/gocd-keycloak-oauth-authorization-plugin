@@ -62,45 +62,25 @@ public class KeycloakApiClient {
         LOG.debug("[KeycloakApiClient] Generating Keycloak oauth url.");
         String realm = keycloakConfiguration.keycloakRealm();
 
-        // TODO: get better solution for this validate
-        if (keycloakConfiguration.keycloakContextPath()) {
-            return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("auth")
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("auth")
-                    .addQueryParameter("client_id", keycloakConfiguration.clientId())
-                    .addQueryParameter("redirect_uri", callbackUrl)
-                    .addQueryParameter("response_type", "code")
-                    .addQueryParameter("scope", keycloakConfiguration.keycloakScopes())
-                    .addQueryParameter("state", UUID.randomUUID().toString())
-                    .addQueryParameter("nonce", UUID.randomUUID().toString())
-                    .build().toString();
-        } else {
-            return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("auth")
-                    .addQueryParameter("client_id", keycloakConfiguration.clientId())
-                    .addQueryParameter("redirect_uri", callbackUrl)
-                    .addQueryParameter("response_type", "code")
-                    .addQueryParameter("scope", keycloakConfiguration.keycloakScopes())
-                    .addQueryParameter("state", UUID.randomUUID().toString())
-                    .addQueryParameter("nonce", UUID.randomUUID().toString())
-                    .build().toString();
-        }
+        return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
+                .newBuilder()
+                .addPathSegments("realms")
+                .addPathSegments(realm)
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("auth")
+                .addQueryParameter("client_id", keycloakConfiguration.clientId())
+                .addQueryParameter("redirect_uri", callbackUrl)
+                .addQueryParameter("response_type", "code")
+                .addQueryParameter("scope", keycloakConfiguration.keycloakScopes())
+                .addQueryParameter("state", UUID.randomUUID().toString())
+                .addQueryParameter("nonce", UUID.randomUUID().toString())
+                .build().toString();
     }
 
     public TokenInfo fetchAccessToken(Map<String, String> params) throws Exception {
         String realm = keycloakConfiguration.keycloakRealm();
         final String code = params.get("code");
-        final String accessTokenUrl;
 
         if (isBlank(code)) {
             throw new RuntimeException("[KeycloakApiClient] Authorization code must not be null.");
@@ -108,28 +88,14 @@ public class KeycloakApiClient {
 
         LOG.debug("[KeycloakApiClient] Fetching access token using authorization code.");
 
-        // TODO: get better solution for this validate
-        if (keycloakConfiguration.keycloakContextPath()) {
-            LOG.debug("[KeycloakApiClient] context path config: " + keycloakConfiguration.keycloakContextPath().toString());
-            accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("auth")
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .build().toString();
-        } else {
-            accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .build().toString();
-        }
+        final String accessTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
+                .newBuilder()
+                .addPathSegments("realms")
+                .addPathSegments(realm)
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("token")
+                .build().toString();
 
         final FormBody formBody = new FormBody.Builder()
                 .add("client_id", keycloakConfiguration.clientId())
@@ -151,7 +117,6 @@ public class KeycloakApiClient {
         validateTokenInfo(tokenInfo);
         String accessToken = tokenInfo.accessToken();
         String realm = keycloakConfiguration.keycloakRealm();
-        final String userProfileUrl;
 
         // Check status of token
         LOG.debug("[KeycloakApiClient] Token Before: " + tokenInfo.accessToken());
@@ -165,27 +130,14 @@ public class KeycloakApiClient {
 
         LOG.debug("[KeycloakApiClient] Fetching user profile using access token.");
 
-        // TODO: get better solution for this validate
-        if (keycloakConfiguration.keycloakContextPath()) {
-            userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("auth")
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("userinfo")
-                    .toString();
-        } else {
-            userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("userinfo")
-                    .toString();
-        }
+        final String userProfileUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
+                .newBuilder()
+                .addPathSegments("realms")
+                .addPathSegments(realm)
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("userinfo")
+                .toString();
 
         final Request request = new Request.Builder()
                 .url(userProfileUrl)
@@ -225,31 +177,16 @@ public class KeycloakApiClient {
         String client = keycloakConfiguration.clientId();
         String secret = keycloakConfiguration.clientSecret();
         String basicEncode = Base64.getEncoder().encodeToString((client + ":" + secret).getBytes());
-        final String introspectUrl;
 
-        // TODO: get better solution for this validate
-        if (keycloakConfiguration.keycloakContextPath()) {
-            introspectUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("auth")
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .addPathSegments("introspect")
-                    .toString();
-        } else {
-            introspectUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .addPathSegments("introspect")
-                    .toString();
-        }
+        final String introspectUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
+                .newBuilder()
+                .addPathSegments("realms")
+                .addPathSegments(realm)
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("token")
+                .addPathSegments("introspect")
+                .toString();
 
         final FormBody formBody = new FormBody.Builder()
                 .add("token", token)
@@ -278,29 +215,15 @@ public class KeycloakApiClient {
         String client = keycloakConfiguration.clientId();
         String secret = keycloakConfiguration.clientSecret();
         String basicEncode = Base64.getEncoder().encodeToString((client + ":" + secret).getBytes());
-        final String refreshTokenUrl;
-
-        // TODO: get better solution for this validate
-        if (keycloakConfiguration.keycloakContextPath()) {
-            refreshTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("auth")
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .build().toString();
-        } else {
-            refreshTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
-                    .newBuilder()
-                    .addPathSegments("realms")
-                    .addPathSegments(realm)
-                    .addPathSegments("protocol")
-                    .addPathSegments("openid-connect")
-                    .addPathSegments("token")
-                    .build().toString();
-        }
+        
+        final String refreshTokenUrl = HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
+                .newBuilder()
+                .addPathSegments("realms")
+                .addPathSegments(realm)
+                .addPathSegments("protocol")
+                .addPathSegments("openid-connect")
+                .addPathSegments("token")
+                .build().toString();
 
         final FormBody formBody = new FormBody.Builder()
                 .add("grant_type", "refresh_token")
