@@ -64,7 +64,6 @@ public class KeycloakApiClient {
 
         return HttpUrl.parse(keycloakConfiguration.keycloakEndpoint())
                 .newBuilder()
-                .addPathSegments("auth")
                 .addPathSegments("realms")
                 .addPathSegments(realm)
                 .addPathSegments("protocol")
