@@ -1,3 +1,6 @@
+> [!NOTE]
+> THIS REPOSITORY IS ARCHIVED, IF YOU LOOK FOR UPDATES LOOK INTO https://github.com/youngjun-99/gocd-keycloak-oauth-authorization-plugin
+
 # Keycloak OAuth plugin for GoCD
 
 The plugin allows user to login in GoCD using an Keycloak account. It is implemented using [GoCD authorization endpoint](https://plugin-api.gocd.org/current/authorization/).
