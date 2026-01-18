@@ -1,5 +1,5 @@
 > [!NOTE]
-> THIS REPOSITORY IS ARCHIVED, IF YOU LOOK FOR UPDATES LOOK INTO https://github.com/youngjun-99/gocd-keycloak-oauth-authorization-plugin
+> THIS REPOSITORY IT'S ARCHIVED, IF YOU LOOK FOR UPDATES LOOK INTO https://github.com/youngjun-99/gocd-keycloak-oauth-authorization-plugin
 
 # Keycloak OAuth plugin for GoCD
 
