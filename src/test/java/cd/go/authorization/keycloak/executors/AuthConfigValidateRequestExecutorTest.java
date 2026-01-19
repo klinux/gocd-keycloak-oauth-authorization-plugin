@@ -62,6 +62,10 @@ public class AuthConfigValidateRequestExecutorTest {
                 "  {\n" +
                 "    \"message\": \"ClientSecret must not be blank.\",\n" +
                 "    \"key\": \"ClientSecret\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"message\": \"KeycloakScopes must not be blank.\",\n" +
+                "    \"key\": \"KeycloakScopes\"\n" +
                 "  }\n" +
                 "]";
 

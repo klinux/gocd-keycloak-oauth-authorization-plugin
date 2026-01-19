@@ -22,7 +22,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import static cd.go.authorization.keycloak.utils.Util.GSON;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserTest {
 

@@ -48,6 +48,11 @@ public class KeycloakConfiguration implements Validatable {
     @ProfileField(key = "ClientSecret", required = true, secure = true)
     private String clientSecret;
 
+    @Expose
+    @SerializedName("KeycloakScopes")
+    @ProfileField(key = "KeycloakScopes", required = true, secure = false)
+    private String keycloakScopes;
+
     private KeycloakApiClient keycloakApiClient;
 
     public KeycloakConfiguration() {
@@ -73,6 +78,10 @@ public class KeycloakConfiguration implements Validatable {
 
     public String clientSecret() {
         return clientSecret;
+    }
+
+    public String keycloakScopes() {
+        return keycloakScopes;
     }
 
     public String toJSON() {

@@ -20,7 +20,7 @@ apply from: "https://raw.githubusercontent.com/gocd/gocd-plugin-gradle-task-help
 gocdPlugin {
     id = 'cd.go.authorization.keycloak'
     pluginVersion = '2.0.0'
-    goCdVersion = '19.2.0'
+    goCdVersion = '23.3.0'
     name = 'Keycloak oauth authorization plugin'
     description = 'Keycloak oauth authorization plugin for GoCD'
     vendorName = 'klinux'

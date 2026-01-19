@@ -34,14 +34,12 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import java.util.Collections;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class UserAuthenticationRequestExecutorTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     @Mock
     private UserAuthenticationRequest request;
     @Mock
@@ -66,10 +64,8 @@ public class UserAuthenticationRequestExecutorTest {
     public void shouldErrorOutIfAuthConfigIsNotProvided() throws Exception {
         when(request.authConfigs()).thenReturn(Collections.emptyList());
 
-        thrown.expect(NoAuthorizationConfigurationException.class);
-        thrown.expectMessage("[Authenticate] No authorization configuration found.");
-
-        executor.execute();
+        Throwable thrown = assertThrows(NoAuthorizationConfigurationException.class, () -> executor.execute());
+        assertThat(thrown.getMessage(), is("[Authenticate] No authorization configuration found."));
     }
 
     @Test

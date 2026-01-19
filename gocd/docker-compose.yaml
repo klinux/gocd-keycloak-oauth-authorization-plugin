@@ -13,7 +13,7 @@ services:
       volumes:
         - data:/opt/jboss/keycloak/standalone/data
   gocd:
-    image: gocd/gocd-server:v22.3.0
+    image: gocd/gocd-server:v23.3.0
     volumes:
       - data:/godata
       - ./plugins:/godata/plugins

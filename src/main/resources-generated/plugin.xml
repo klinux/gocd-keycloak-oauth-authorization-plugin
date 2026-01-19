@@ -17,8 +17,8 @@
 <go-plugin id="cd.go.authorization.keycloak" version="1">
   <about>
     <name>Keycloak oauth authorization plugin</name>
-    <version>2.0.0-19</version>
-    <target-go-version>19.2.0</target-go-version>
+    <version>2.0.0-23</version>
+    <target-go-version>23.3.0</target-go-version>
     <description>Keycloak oauth authorization plugin for GoCD</description>
     <vendor>
       <name>klinux</name>
